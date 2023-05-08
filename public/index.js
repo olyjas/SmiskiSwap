@@ -16,9 +16,22 @@
    * this initializes the event listeners on the buttons on both pages
    */
   function init() {
-    id("signup").addEventListener("click", () => {
-      changePage();
-    });
+
+    if(id("signup") !== null && id("login") !== null) {
+      id("signup").addEventListener("click", function() {
+            changePage("signup", "login.html");
+      });
+
+      id("login").addEventListener("click", function() {
+        changePage("login", "login.html");
+  });
+
+    };
+
+  }
+
+  function changePage(id, url) {
+    window.location.href = url;
   }
 
   /**
