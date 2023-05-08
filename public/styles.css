@@ -105,13 +105,35 @@ hr {
 }
 
 #search h3 {
-  font-size: 24px;
+  font-size: 30px;
   margin: 0 0 10px 0;
 }
 
 #search p {
-  font-size: 18px;
+  font-size: 22px;
   margin: 0 0 20px 0;
 }
+
+#searchbutton {
+  font-size: 18px;
+  padding: 14px 16px;
+  background-color: white;
+  border-radius: 12px;
+  border-color: rgb(232, 185, 194);
+  border-style: solid;
+  color: rgb(232, 185, 194);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 300;
+  width: 40%;
+}
+
+#searchbutton:hover {
+  background-color: rgb(232, 185, 194);
+  border-radius: 12px;
+  border-color: rgb(232, 185, 194);
+  border-style: solid;
+  color: white;
+}
+
 
 
