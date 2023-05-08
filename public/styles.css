@@ -1,0 +1,88 @@
+/*
+  Name: Jasmine Zhang & Sthiti Patnaik
+  Date: May 7, 2023
+  Section: CSE 154 AG & AF
+  TA's: TARA WUEGER & ALLISON HO
+*/
+
+body > header {
+  display: flex;
+  align-items: center;
+  background-color: rgb(232, 185, 194);
+  font-family: 'Comfortaa', cursive;
+  justify-content: space-between;
+  color: white;
+}
+
+body > header > div > h1 {
+  font-size: 75px;
+}
+
+#headertext {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body > header > img {
+  width: 5%;
+  margin: 40px;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+}
+
+#buttons > button {
+
+  font-size: 18px;
+  padding: 12px;
+  background-color: rgb(232, 185, 194);
+  border-radius: 12%;
+  border-color: white;
+  border-style: solid;
+  color: white;
+}
+
+
+#buttons > button:hover {
+
+  font-size: 18px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 12%;
+  border-color: rgb(232, 185, 194);
+  border-style: solid;
+  color: rgb(232, 185, 194);
+}
+
+#buttons > #signup {
+  margin-bottom: 10px;
+}
+
+#idtext {
+  display: flex;
+}
+
+body {
+  background-color: white;
+  margin: 0;
+}
+
+hr {
+  margin: 0;
+  border-color:rgb(232, 185, 194);
+}
+
+#headertext > h1 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#headertext > h2 {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
