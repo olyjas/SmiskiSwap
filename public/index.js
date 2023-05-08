@@ -30,8 +30,8 @@
         changePage("login", "login.html");
       });
     }
-
   }
+
   /**
    * when the user clicks the button it will take them to a specfied page
    * @param {string} id - element ID.
