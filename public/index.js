@@ -17,6 +17,9 @@
    */
   function init() {
 
+    /** checks if the button exists and if it does, takes ths user to the
+     * login and sign up page
+     */
     if(id("signup") !== null && id("login") !== null) {
       id("signup").addEventListener("click", function() {
             changePage("signup", "login.html");
@@ -24,8 +27,7 @@
 
       id("login").addEventListener("click", function() {
         changePage("login", "login.html");
-  });
-
+      });
     };
 
   }
@@ -35,39 +37,12 @@
   }
 
   /**
-   * Makes a new element and returns it
-   * @param {string} tagName - the element to be created.
-   * @returns {object} - the new element
-   */
-  function gen(tagName) {
-    return document.createElement(tagName);
-  }
-
-  /**
    * Returns the element that has the ID attribute with the specified value.
    * @param {string} id - element ID.
    * @returns {object} - DOM object associated with id.
    */
   function id(id) {
     return document.getElementById(id);
-  }
-
-  /**
-   * Returns the element that has the qs attribute with the specified value.
-   * @param {string} selector - selector we are looking for.
-   * @returns {object} - DOM objects associated with selectors.
-   */
-  function qs(selector) {
-    return document.querySelector(selector);
-  }
-
-  /**
-   * Returns all of the elements that has the qs attribute with the specified value.
-   * @param {string} selector - selector we are looking for.
-   * @returns {object} - DOM objects associated with selector.
-   */
-  function qsa(selector) {
-    return document.querySelectorAll(selector);
   }
 
 })();
