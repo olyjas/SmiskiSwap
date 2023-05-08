@@ -20,15 +20,15 @@
     /** checks if the button exists and if it does, takes ths user to the
      * login and sign up page
      */
-    if(id("signup") !== null && id("login") !== null) {
+    if (id("signup") !== null && id("login") !== null) {
       id("signup").addEventListener("click", function() {
-            changePage("signup", "login.html");
+        changePage("signup", "login.html");
       });
 
       id("login").addEventListener("click", function() {
         changePage("login", "login.html");
       });
-    };
+    }
 
   }
 
