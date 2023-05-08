@@ -12,6 +12,7 @@ body > header {
   font-family: 'Comfortaa', cursive;
   justify-content: space-between;
   color: white;
+  font-weight: 500;
 }
 
 body > header > div > h1 {
@@ -39,23 +40,21 @@ body > header > img {
 #buttons > button {
 
   font-size: 18px;
-  padding: 12px;
+  padding: 14px 16px;
   background-color: rgb(232, 185, 194);
-  border-radius: 12%;
+  border-radius: 12px;
   border-color: white;
   border-style: solid;
   color: white;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
 }
 
 
 #buttons > button:hover {
 
-  font-size: 18px;
-  padding: 12px;
   background-color: white;
-  border-radius: 12%;
   border-color: rgb(232, 185, 194);
-  border-style: solid;
   color: rgb(232, 185, 194);
 }
 
@@ -86,3 +85,33 @@ hr {
   margin-top: 10px;
   margin-bottom: 15px;
 }
+
+#search {
+  display: flex;
+  align-items: center;
+  margin: 20px 150px 50px 150px;
+  font-family: 'Manrope', sans-serif;
+}
+
+#search > section {
+  display: flex;
+  flex-direction: column;
+}
+
+#search > img {
+  width: 17%;
+  height: auto;
+  margin-right: 100px;
+}
+
+#search h3 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+}
+
+#search p {
+  font-size: 18px;
+  margin: 0 0 20px 0;
+}
+
+
