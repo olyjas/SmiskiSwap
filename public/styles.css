@@ -63,10 +63,6 @@ body > header > img:hover {
   margin-bottom: 10px;
 }
 
-#idtext {
-  display: flex;
-}
-
 body {
   background-color: white;
   margin: 0;

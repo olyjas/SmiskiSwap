@@ -17,7 +17,8 @@
    */
   function init() {
 
-    /** checks if the button exists and if it does, takes ths user to the
+    /**
+     * checks if the button exists and if it does, takes ths user to the
      * login and sign up page
      */
     if (id("signup") !== null && id("login") !== null) {
@@ -31,7 +32,11 @@
     }
 
   }
-
+  /**
+   * when the user clicks the button it will take them to a specfied page
+   * @param {string} id - element ID.
+   * @param {string} url - url to the different page
+   */
   function changePage(id, url) {
     window.location.href = url;
   }
