@@ -89,7 +89,7 @@ hr {
 #search {
   display: flex;
   align-items: center;
-  margin: 20px 150px 50px 150px;
+  margin: 20px 160px 50px 160px;
   font-family: 'Manrope', sans-serif;
 }
 
@@ -99,9 +99,9 @@ hr {
 }
 
 #search > img {
-  width: 17%;
+  width: 20%;
   height: auto;
-  margin-right: 100px;
+  margin-right: 140px;
 }
 
 #search h3 {
