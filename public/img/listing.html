@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+  JASMINE ZHANG & STHITI PATNAIK
+  5/7/2023
+  SECTION AG & AF
+  TA: TARA WUEGER & ALLISON HO
+  This is the listing.html page of our project, Smiskii Swap.
+  This is the page a seller will go to list a smiskii for sale to show up on the site.
+-->
+<html lang="en">
+  <head>
+    <title>Sonny Swap!</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500&display=swap" rel="stylesheet">
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <header>
+      <article id="sidelogo">
+        <img src="img/logo.jpg" alt="Smiskii Swap Logo">
+      </article>
+      <nav>
+        <input id='search-term' type='text'>
+        <button id='search-btn' disabled>search</button>
+        <button id='account'>yip</button>
+      </nav>
+    </header>
+    <main>
+      <section class="listing-view">
+        <img class="left-side-smiskii-view" src="" alt="">
+        <section class="listing-details">
+          <section id="insert-name"></section>
+          <section id="listing-info">
+            <section class="labels">
+              <h1>Seller</h1>
+            </section>
+            <section class="labels">
+              <h1>Series Seeking</h1>
+            </section>
+            <section class="labels">
+              <h1>Smiskii Seeking</h1>
+            </section>
+            <section class="labels">
+              <h1>Additional Information</h1>
+            </section>
+          </section>
+          <section id="name-of-smiskii">
+            <div>
+              <input type="text" id="seller-name" placeholder="Name of Smiskii for Swap" />
+            </div>
+          </section>
+          <section id="input-listing-containers">
+            <div>
+              <input type="text" id="seller-name" placeholder="Your Username" />
+            </div>
+            <div>
+              <input type="text" id="series-seeking-input" placeholder="What series do you want?" />
+            </div>
+            <div>
+              <input type="text" id="individual-seeking-input" placeholder="Which Smiskii do you want?" />
+            </div>
+            <div>
+              <input type="text" id="additional-info-input" placeholder="Input additional information" />
+            </div>
+            <button id="list-now">Search now</button>
+          </section>
+
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
