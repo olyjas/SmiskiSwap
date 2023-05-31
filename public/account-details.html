@@ -4,8 +4,8 @@
   5/7/2023
   SECTION AG & AF
   TA: TARA WUEGER & ALLISON HO
-  This is the listing.html page of our project, Smiskii Swap.
-  This is the page a seller will go to list a smiskii for sale to show up on the site.
+  This is the account-details.html page of our project, Smiskii Swap.
+  This is the page a user will go to update their account details.
 -->
 <html lang="en">
   <head>
@@ -37,38 +37,41 @@
         <section class="listing-details">
           <section id="insert-name"></section>
           <section id="listing-info">
-            <section class="labels">
-              <h1>Seller</h1>
+            <section class="profile-label">
+              <h1>PROFILE</h1>
             </section>
             <section class="labels">
-              <h1>Series Seeking</h1>
+              <h1>Name</h1>
             </section>
             <section class="labels">
-              <h1>Smiskii Seeking</h1>
+              <h1>Username</h1>
             </section>
             <section class="labels">
-              <h1>Additional Information</h1>
+              <h1>Email</h1>
+            </section>
+            <section class="labels">
+              <h1>Phone Number</h1>
             </section>
           </section>
-          <section id="name-of-smiskii">
+          <section id="name-input">
             <div>
               <input type="text" id="seller-name" placeholder="Name of Smiskii for Swap" />
             </div>
           </section>
           <section class="input-listing-containers">
             <div>
-              <input type="text" id="seller-name" placeholder="Your Username" />
+              <input type="text" id="name-input" placeholder="Your Name" />
             </div>
             <div>
-              <input type="text" id="series-seeking-input" placeholder="What series do you want?" />
+              <input type="text" id="username-input" placeholder="Your Username" />
             </div>
             <div>
-              <input type="text" id="individual-seeking-input" placeholder="Which Smiskii do you want?" />
+              <input type="text" id="email-input" placeholder="example@smiskiiswap.com" />
             </div>
             <div>
-              <input type="text" id="additional-info-input" placeholder="Input additional information" />
+              <input type="text" id="phone-number-input" placeholder="(XXX)-XXX-XXXX" />
             </div>
-            <button id="list-now">Search now</button>
+            <button id="update-now">Update</button>
           </section>
 
         </section>
