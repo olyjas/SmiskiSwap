@@ -5,16 +5,60 @@
   TA's: TARA WUEGER & ALLISON HO
 */
 
+
+body {
+  background-color: white;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#banner {
+  background-color: #dcf3c6f1;
+  height: 285px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1000px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #234F1E;
+}
+
+#banner img {
+  height: 290px;
+  padding-bottom: 43px; /* Increase the padding at the bottom */
+}
+
+
+#banner-text {
+  position: absolute; /* Add absolute positioning */
+  top: 17.5%; /* Position it vertically in the middle */
+  left: 50%; /* Position it horizontally in the middle */
+  transform: translate(-50%, -50%); /* Center it precisely */
+  text-align: center; /* Center the text */
+}
+
+#banner-text h2 {
+  font-size: 30px;
+  color: #234F1E;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+}
+
 body > header {
   display: flex;
   align-items: center;
   background-color: #a0cc74;
   justify-content: space-between;
   font-weight: 500;
+  height: 80px;
 }
 
 body > header > img {
-  width: 2%;
+  width: 3.5%;
   margin: 40px;
 }
 
@@ -22,17 +66,17 @@ body > header > img:hover {
   filter: grayscale(60%);
 }
 
-#buttons {
+#account-buttons {
   display: flex;
-  flex-direction: column;
-  margin: 40px;
+  margin: 30px;
+  gap: 10px;
 }
 
-#buttons > button {
-  font-size: 18px;
+#account-buttons > button {
+  font-size: 15px;
   padding: 14px 16px;
   background-color: #a0cc74;
-  border-radius: 12px;
+  border-radius: 10px;
   border-color: white;
   border-style: solid;
   color: white;
@@ -40,14 +84,10 @@ body > header > img:hover {
   font-weight: 400;
 }
 
-#buttons > button:hover {
+#account-buttons > button:hover {
   background-color: white;
   border-color: #a0cc74;
   color: #a0cc74;
-}
-
-#buttons > #signup {
-  margin-bottom: 10px;
 }
 
 body {
@@ -63,13 +103,54 @@ hr {
 #search-header {
   display: flex;
   justify-content: center;
+  gap: 7px;
 }
 
-#search-header > input {
-  width: 100%; /* Make the input element span the entire width */
-  max-width: 300px; /* Set a maximum width for the input */
+#search-term {
+  width: 800px; /* Set a maximum width for the input */
   padding: 10px;
   font-size: 18px;
   border-radius: 8px;
+  border: 2px solid #234F1E;
+}
+
+#search-btn {
+  font-size: 15px;
+  padding: 10px 10px;
+  background-color: white;
+  border-radius: 5px;
+  border-color: #234F1E;
+  border-style: solid;
+  color: #234F1E;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+}
+
+#search-btn:hover {
+  background-color: rgb(225, 218, 218);
+  border-color: #234F1E;
+  color: #234F1E;
+}
+
+#about-button-container {
+  position: absolute;
+  top: 49.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#about-button {
+  padding: 10px 20px;
+  background-color: #afc59a4e;
+  border-radius: 10px;
+  border-color: #234F1E;
+  border-style: solid;
   border: 1px solid #234F1E;
+  color: #234F1E;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+}
+
+#about-button:hover {
+  background-color: #afc59ac4;
 }
