@@ -1,0 +1,75 @@
+/*
+  Name: Jasmine Zhang & Sthiti Patnaik
+  Date: May 7, 2023
+  Section: CSE 154 AG & AF
+  TA's: TARA WUEGER & ALLISON HO
+*/
+
+body > header {
+  display: flex;
+  align-items: center;
+  background-color: #a0cc74;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+body > header > img {
+  width: 2%;
+  margin: 40px;
+}
+
+body > header > img:hover {
+  filter: grayscale(60%);
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+}
+
+#buttons > button {
+  font-size: 18px;
+  padding: 14px 16px;
+  background-color: #a0cc74;
+  border-radius: 12px;
+  border-color: white;
+  border-style: solid;
+  color: white;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+}
+
+#buttons > button:hover {
+  background-color: white;
+  border-color: #a0cc74;
+  color: #a0cc74;
+}
+
+#buttons > #signup {
+  margin-bottom: 10px;
+}
+
+body {
+  background-color: white;
+  margin: 0;
+}
+
+hr {
+  margin: 0;
+  border-color: #234F1E;
+}
+
+#search-header {
+  display: flex;
+  justify-content: center;
+}
+
+#search-header > input {
+  width: 100%; /* Make the input element span the entire width */
+  max-width: 300px; /* Set a maximum width for the input */
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: 1px solid #234F1E;
+}
