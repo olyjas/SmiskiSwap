@@ -148,3 +148,81 @@ hr {
   border-style: solid;
   color: white;
 }
+
+/* ----account details css---- */
+
+.listing-view {
+  display: flex;
+  align-items: flex-start;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 10%;
+}
+
+.left-side-smiskii-view {
+  width: 200px;
+  height: 200px;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.listing-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#account-details-info {
+  width: 300px;
+  height: auto;
+  background-color: green;
+  margin-bottom: 10%;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.labels {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.labels h1 {
+  margin-right: 10px;
+}
+
+.input-listing-containers {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-box input[type="text"] {
+  flex: 1;
+  margin-left: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#update-now {
+  width: auto;
+  background-color: #f2f2f2;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#details-container {
+  display: flex;
+}
