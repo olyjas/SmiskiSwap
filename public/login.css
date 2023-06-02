@@ -1,0 +1,79 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Manrope', sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+}
+
+#signup label,
+#login label {
+  width: 100%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 110%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; /* Added property */
+}
+
+input[type="submit"] {
+  width: 70%;
+  padding: 10px;
+  background-color: #a0cc74;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#signup button {
+  font-size: 15px;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #a0cc74;
+}
+
+p {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#login,
+#signup {
+  width: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 50px 90px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#login input,
+#signup input {
+  margin: 0; /* Added property */
+}
