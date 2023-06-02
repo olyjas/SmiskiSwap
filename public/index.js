@@ -48,7 +48,6 @@
         console.log(data);
         for(let i = 0; i < data.length; i++) {
           if(search.toLowerCase() === data[i]){
-            console.log(1);
             seriesSearchView(search);
           }
         }
@@ -66,27 +65,18 @@
       }
       url = "/allsmiskiis/?search=" + search();
     } else {
-      console.log(2);
       url = "/allsmiskiis/?search=" + search.toLowerCase();
     }
     fetchNamesinSeries(search, url);
 
   }
 
-  // function fetchNamesinSeries(search, url) {
-  //   fetch(url)
-  //     .then(statusCheck)
-  //     .then((resp) => resp.json())
-  //     .then(buildSearchViewCards(search, data))
-  //     .catch(handleError);
-  // }
   function fetchNamesinSeries(search, url) {
     fetch(url)
       .then(statusCheck)
       .then((resp) => resp.json())
       .then(async (data) => {
         await buildSearchViewCards(search, data);
-        // Additional code here if needed
       })
       .catch(handleError);
   }
@@ -94,12 +84,10 @@
   function buildSearchViewCards(search, data) {
     //this data should have all of the names
     //data[i].Names
-    console.log(3);
     for(let i = 0; i < 6; i++) {
       let seriesArticle = gen('article');
       seriesArticle.classList.add("series-card");
       let smiskiiImg = gen('img');
-      console.log(data);
       let names = data[i].Names;
       if((/\s/.test(names)) || names.includes("-")) {
         let allNames = "";
@@ -110,13 +98,11 @@
         }
         names = "";
         for(let i = 0; i < allNames.length; i++) {
-          console.log(allNames[i]);
           names += allNames[i];
         }
         names = names.toLowerCase();
       }
       smiskiiImg.src = "/img/series/" + search + "/" + names + ".png";
-      console.log(smiskiiImg);
       smiskiiImg.alt = search + " picture";
       seriesArticle.appendChild(smiskiiImg);
       let seriesName = gen('p');
@@ -129,6 +115,7 @@
   }
 
   function loadSmiskiiSearchView() {
+    document.querySelector("#search-results").innerHTML = "";
     console.log("hey");
   }
 
