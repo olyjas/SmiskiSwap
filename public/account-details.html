@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <!--
   JASMINE ZHANG & STHITI PATNAIK
   5/7/2023
@@ -7,11 +7,11 @@
   This is the account-details.html page of our project, Smiskii Swap.
   This is the page a user will go to update their account details.
 -->
-<html lang="en">
+ <html lang="en">
   <head>
-    <title>Sonny Swap!</title>
+    <title>Smiski Swap!</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="landing-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
@@ -22,14 +22,15 @@
   </head>
   <body>
     <header>
-      <article id="sidelogo">
-        <img src="img/logo.jpg" alt="Smiskii Swap Logo">
-      </article>
-      <nav>
+      <img src="img/logo.png" alt="Smiski Swap Logo">
+      <div id="search-header">
         <input id='search-term' type='text'>
-        <button id='search-btn' disabled>search</button>
-        <button id='account'>yip</button>
-      </nav>
+        <button id='search-btn' class='buttons'>search</button>
+      </div>
+      <div id="account-buttons" class='buttons'>
+        <button id="signup">Sign up</button>
+        <button id="login">Log in</button>
+      </div>
     </header>
     <main>
       <section class="listing-view">
@@ -39,7 +40,7 @@
           <div id="details-container">
             <section id="account-details-info">
             <section class="profile-label">
-              <!-- <h1>PROFILE</h1> -->
+               <h1>PROFILE</h1>
             </section>
             <section class="labels">
               <h1>Name</h1>
