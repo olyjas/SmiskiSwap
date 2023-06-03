@@ -32,6 +32,7 @@
     /*---log in and sign up functionalities end----*/
 
     let search = id('search-term');
+    fetchReccomended('/smiskilistings')
 
     let searchBar = qs("#search-btn");
     searchBar.addEventListener("click", function() {
