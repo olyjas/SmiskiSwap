@@ -7,7 +7,7 @@
 
 
 body {
-  background-color: #f2f2f2;
+  background-color: #d7dad7;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -295,3 +295,85 @@ hr {
   display: none !important;
 }
 
+/* LOGIN/SIGNUP STYLING */
+#signup-page label,
+#login-page label {
+  width: 100%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 110%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; /* Added property */
+}
+
+input[type="submit"] {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #a0cc74;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#login-page input[type="submit"] {
+  margin-bottom: 30px;
+}
+
+#login-page button {
+  margin-bottom: 25px;
+}
+
+
+#login-page,
+#signup-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 50px 90px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#login-page input,
+#signup-page input {
+  margin: 0; /* Added property */
+}
+
+#login-from-signup,
+#signup-from-login {
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #a0cc74;
+  font-size: 15px;
+}
+
+.home {
+  width: 30%;
+  padding: 5px 2px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: #a0cc74;
+  border-color: #a0cc74;
+  border-radius: 5px;
+  border-style: solid;
+  cursor: pointer;
+}

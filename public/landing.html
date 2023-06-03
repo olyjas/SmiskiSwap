@@ -23,18 +23,19 @@
   </head>
   <body>
 
-
+     <!-- header view -->
     <header>
-      <img src="img/logo.png" alt="Smiski Swap Logo">
+      <img src="img/logo.png" id="logo-img" alt="Smiski Swap Logo">
       <div id="search-header">
         <input id='search-term' type='text'>
         <button id='search-btn' class='buttons'>search</button>
       </div>
       <div id="account-buttons" class='buttons'>
-        <button id="signup">Sign up</button>
-        <button id="login">Log in</button>
+        <button id="signup-btn">Sign up</button>
+        <button id="login-btn">Log in</button>
       </div>
     </header>
+     <!-- end of header view -->
 
     <hr>
     <main>
@@ -50,8 +51,8 @@
           </div>
         </section>
 
-        <section id="reccomended-boxes">
-          <div class="reccomended">
+        <section id="recommended-boxes">
+          <div class="recommended">
             <article id="reccomended1">
             </article>
             <article id="reccomended2">
@@ -65,6 +66,35 @@
       </section>
 
       <!-- end of landing/homepage view -->
+
+      <!--LOGIN/SIGNUP PAGES-->
+
+      <div id="login-page" class="hidden">
+        <h2>Login</h2>
+          <label for="username">Username:</label>
+          <input type="text" id="login-username" name="username" required><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="login-password" name="password" required><br><br>
+          <input type="submit" value="Login">
+          <button id="signup-from-login">Create an account</button>
+          <button id="home-from-login" class="home">Home</button>
+      </div>
+      <div id="signup-page" class="hidden">
+        <h2>Sign Up</h2>
+        <!--<form action="process-signup.php" method="POST">-->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="username">Username:</label>
+            <input type="text" id="signup-username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="signup-password" name="password" required><br><br>
+          <input type="submit" value="Sign Up">
+          <p>Already have an account? <button id="login-from-signup">Log in</button></p>
+          <button id="home-from-signup" class="home">Home</button>
+        <!--</form>-->
+      </div>
+
+        <!--END OF LOGIN/SIGNUP PAGES-->
 
       <!-- search results page -->
       <!-- <button id='filter-btn' disabled>filter</button> -->

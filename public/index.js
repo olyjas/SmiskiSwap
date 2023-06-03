@@ -17,15 +17,12 @@
    */
   function init() {
 
-    /*----log in and sign up functionalities---*/
-    /**
-     * checks if the button exists and if it does, takes ths user to the
-     * login and sign up page
-     */
-    // if (id("signup") !== null && id("login") !== null) {
-    //   id("signup").addEventListener("click", function() {
-    //     changePage("signup", "login.html");
-    //   });
+    let loginButton = id('login-btn');
+    let signupButton = id('signup-btn');
+    let logo = id ('logo-img');
+    loginButton.addEventListener('click', loginView);
+    signupButton.addEventListener('click', signupView);
+    logo.addEventListener('click', homeView);
 
     //   id("login").addEventListener("click", function() {
     //     changePage("login", "login.html");
@@ -34,8 +31,6 @@
 
     /*---log in and sign up functionalities end----*/
 
-    // populateSearchBars();
-    fetchReccomended("/smiskilistings");
     let search = id('search-term');
 
     let searchBar = qs("#search-btn");
@@ -44,6 +39,59 @@
       startSearchSort(search.value);
       qs("#banner").classList.add("hidden");
     });
+  }
+
+  function loginView() {
+    clearForLoginSignup();
+    let signupPage = id('signup-page');
+    signupPage.classList.add('hidden');
+    let loginPage = id('login-page');
+    loginPage.classList.remove('hidden');
+    let login = id('signup-from-login');
+    login.addEventListener('click',  signupView);
+    let backButton = id('home-from-login');
+    backButton.addEventListener('click', homeView);
+  }
+
+  function signupView() {
+    clearForLoginSignup();
+    let loginPage = id('login-page');
+    loginPage.classList.add('hidden');
+    let signupPage = id('signup-page');
+    signupPage.classList.remove('hidden');
+    let login = id('login-from-signup');
+    login.addEventListener('click', loginView);
+    let backButton = id('home-from-signup');
+    backButton.addEventListener('click', homeView);
+  }
+
+  function clearForLoginSignup() {
+    let header = qs('header');
+    let banner = id('banner');
+    header.classList.add('hidden');
+    banner.classList.add('hidden');
+    let searchResults = id('search-results');
+    searchResults.classList.add('hidden');
+    let accountDetails = id('account-details');
+    accountDetails.classList.add('hidden');
+  }
+
+  function homeView() {
+    let header = qs('header');
+    let banner = id('banner');
+    header.classList.remove('hidden');
+    banner.classList.remove('hidden');
+    let searchResults = id('search-results');
+    searchResults.innerHTML = '';
+    searchResults.classList.remove('hidden');
+    let searchTerm = id('search-term');
+    searchTerm.value = '';
+    let accountDetails = id('account-details');
+    accountDetails.classList.remove('hidden');
+    let signupPage = id('signup-page');
+    signupPage.classList.add('hidden');
+    let loginPage = id('login-page');
+    loginPage.classList.add('hidden');
   }
 
   function fetchReccomended(url) {
