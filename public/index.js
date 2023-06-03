@@ -38,7 +38,9 @@
 
     let searchBar = qs("#search-btn");
     searchBar.addEventListener("click", function() {
+      document.querySelector("#search-results").innerHTML = "";
       startSearchSort(search.value);
+      qs("#banner").classList.add("hidden");
     });
   }
 
