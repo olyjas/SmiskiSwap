@@ -250,3 +250,7 @@ hr {
   font-size: 18px;
   text-align: center;
 }
+
+.hidden {
+  display: none !important;
+}
