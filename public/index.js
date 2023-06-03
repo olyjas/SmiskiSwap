@@ -34,6 +34,8 @@
 
     /*---log in and sign up functionalities end----*/
 
+    // populateSearchBars();
+    fetchReccomended("/smiskilistings");
     let search = id('search-term');
 
     let searchBar = qs("#search-btn");
@@ -42,6 +44,80 @@
       startSearchSort(search.value);
       qs("#banner").classList.add("hidden");
     });
+  }
+
+  function fetchReccomended(url) {
+    fetch(url)
+      .then(statusCheck)
+      .then((resp) => resp.json())
+      .then(populateReccomended)
+      .catch(handleError);
+  }
+
+  function populateReccomended(data) {
+    for(let i = 1; i <= 4; i++) {
+      const randomIndex = Math.floor(Math.random() * data.length) + 1;
+
+      let username = data[randomIndex].username;
+      let listing = data[randomIndex]['name of listing'];
+      let series = data[randomIndex]['series of listing'];
+
+      console.log(randomIndex);
+      console.log(data);
+      console.log(username);
+      console.log(listing);
+      console.log(series);
+
+      let container = qs("#reccomended" + i);
+      container.classList.add("reccomendedboxes");
+      let smiskiiImg = gen('img');
+      if((/\s/.test(listing)) || listing.includes("-")) {
+        let allNames = "";
+        if(/\s/.test(listing)) {
+          allNames = listing.split(" ");
+        } else {
+          allNames = listing.split("-");
+        }
+        listing = "";
+        for(let i = 0; i < allNames.length; i++) {
+          listing += allNames[i];
+        }
+        listing = listing.toLowerCase();
+      }
+      smiskiiImg.src = "/img/series/" + series + "/" + listing + ".png";
+      smiskiiImg.alt = series + " picture";
+      console.log(smiskiiImg.src);
+
+    //this is redundant code
+    // let seriesArticle = gen('article');
+    //   seriesArticle.classList.add("series-card");
+    //   let smiskiiImg = gen('img');
+    //   let names = data[i].Names;
+    //   if((/\s/.test(names)) || names.includes("-")) {
+    //     let allNames = "";
+    //     if(/\s/.test(names)) {
+    //       allNames = names.split(" ");
+    //     } else {
+    //       allNames = names.split("-");
+    //     }
+    //     names = "";
+    //     for(let i = 0; i < allNames.length; i++) {
+    //       names += allNames[i];
+    //     }
+    //     names = names.toLowerCase();
+    //   }
+    //   smiskiiImg.src = "/img/series/" + search + "/" + names + ".png";
+    //   smiskiiImg.alt = search + " picture";
+    //   seriesArticle.appendChild(smiskiiImg);
+    //   let seriesName = gen('p');
+    //   seriesName.innerHTML = data[i].Names;
+    //   seriesName.classList.add("series-name-card");
+    //   seriesArticle.appendChild(seriesName);
+    //   seriesArticle.addEventListener("click", loadSmiskiiSearchView);
+    //   qs("#search-results").appendChild(seriesArticle);
+    ////
+
+    }
   }
 
   function startSearchSort(search) {
@@ -113,6 +189,40 @@
       seriesArticle.appendChild(seriesName);
       seriesArticle.addEventListener("click", loadSmiskiiSearchView);
       qs("#search-results").appendChild(seriesArticle);
+    }
+  }
+
+  //this is the method that i want to be able to call whenever making cards
+  //of some sort. right now, we will test the functionalities with the reccomeended
+  //section on the home page or maybe i use this for the other search results actually
+  function buildCards(search, data, num, parentContainer) {
+    for(let i = 0; i < num; i++) {
+      let seriesArticle = gen('article');
+      seriesArticle.classList.add("series-card");
+      let smiskiiImg = gen('img');
+      let names = data[i].Names;
+      if((/\s/.test(names)) || names.includes("-")) {
+        let allNames = "";
+        if(/\s/.test(names)) {
+          allNames = names.split(" ");
+        } else {
+          allNames = names.split("-");
+        }
+        names = "";
+        for(let i = 0; i < allNames.length; i++) {
+          names += allNames[i];
+        }
+        names = names.toLowerCase();
+      }
+      smiskiiImg.src = "/img/series/" + search + "/" + names + ".png";
+      smiskiiImg.alt = search + " picture";
+      seriesArticle.appendChild(smiskiiImg);
+      let seriesName = gen('p');
+      seriesName.innerHTML = data[i].Names;
+      seriesName.classList.add("series-name-card");
+      seriesArticle.appendChild(seriesName);
+      seriesArticle.addEventListener("click", loadSmiskiiSearchView);
+      parentContainer.appendChild(seriesArticle);
     }
   }
 

@@ -71,6 +71,31 @@ app.get('/allsmiskiis', async function(req, res) {
   }
 });
 
+//GET THE NAME OF ALL OF THE SERIES
+app.get('/smiskilistings', async function(req, res) {
+  try {
+    //let search = req.query.search;
+    res.type('JSON');
+    let db = await getDBConnection();
+    //use the distinct keyword instead
+    let query = 'SELECT  username, [name of listing], [series of listing] from singlesmiskilistings';
+    let results = await db.all(query);
+    // let finalResults = [];
+    // let index = 0;
+    // for(let i = 0; i < results.length; i++) {
+    //   if(!(finalResults.includes(results[i].Series))) {
+    //     finalResults[index] = results[i].Series;
+    //     index++;
+    //   }
+    // }
+    db.close();
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    console.log(err);
+    res.type('text').send('An error occurred on the server. Try again later.');
+  }
+});
 
 //GET THE NAME OF ALL OF THE SERIES
 app.get('/smiskiiseries', async function(req, res) {
