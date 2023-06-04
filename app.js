@@ -193,7 +193,28 @@ app.get('/allsmiskiis', async function(req, res) {
   }
 });
 
-//GET THE NAME OF ALL OF THE SERIES
+//GET THE info for a specfic listing
+app.post('/smiskilisting/:smiskiName', async function(req, res) {
+  let smiski = req.body.smiskiName;
+  console.log(smiski);
+  try {
+    //let search = req.query.search;
+    res.type('JSON');
+    let db = await getDBConnection();
+    //use the distinct keyword instead
+    //let query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing` =?';
+    let query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing`=?';
+    let results = await db.all(query, smiski);
+    db.close();
+    res.json(results);
+  } catch (err) {
+    res.status(500);
+    console.log(err);
+    res.type('text').send('An error occurred on the server. Try again later.');
+  }
+});
+
+//get all the listings for a specifc smiskii
 app.get('/smiskilistings', async function(req, res) {
   try {
     //let search = req.query.search;
@@ -202,14 +223,6 @@ app.get('/smiskilistings', async function(req, res) {
     //use the distinct keyword instead
     let query = 'SELECT  username, [name of listing], [series of listing] from singlesmiskilistings';
     let results = await db.all(query);
-    // let finalResults = [];
-    // let index = 0;
-    // for(let i = 0; i < results.length; i++) {
-    //   if(!(finalResults.includes(results[i].Series))) {
-    //     finalResults[index] = results[i].Series;
-    //     index++;
-    //   }
-    // }
     db.close();
     res.json(results);
   } catch (err) {
@@ -275,33 +288,45 @@ app.get('/series', async function(req, res) {
   }
 });
 
+//search results
+app.post('/search/:searchInput', async function(req, res) {
+  const searchInput = req.body.searchInput;
 
-// app.post('/yipper/likes', async function(req, res) {
-//   try {
-//     let id = req.body.id;
-//     if(!id) {
-//       res.status(400).type('text');
-//       res.send('Yikes. ID does not exist.');
-//     }
-//     res.type('text');
-//     let db = await getDBConnection();
-//     let likes = 'SELECT likes FROM yips WHERE id = ' + id;
-//     let likeNumber = await db.get(likes);
+  try {
+    console.log(1);
+    let db = await getDBConnection();
+    let query = 'SELECT * FROM smiskiinamesdata WHERE Series = ?';
+    let seriesResults = await db.all(query, searchInput);
+    console.log(searchInput);
+    console.log(seriesResults);
 
-//     let updatedNum = likeNumber.likes + 1;
-//     let query = 'UPDATE yips SET likes = ? WHERE id = ?';
+    if (seriesResults.length > 0) {
+      // Handle the matching series functionality
+      res.json(seriesResults);
+      //res.send(seriesResults);
+    } else {
+      query = 'SELECT * FROM smiskiinamesdata WHERE Names = ?';
+      let listingsResults = await db.all(query, searchInput);
 
-//     await db.run(query, updatedNum, id);
-//     await db.get('SELECT * FROM yips WHERE id = ' + id);
+      if (listingsResults.length > 0) {
+        query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing`=?';
+        let specficListingsResults = await db.all(query, searchInput);
+        // Handle the matching listings functionality
+        res.json(specficListingsResults);
+        //res.send(listingsResults);
+      } else {
+        // No match found
+        res.json([]);
+      }
+    }
 
-//     db.close();
-//     res.send(updatedNum + "");
-//   } catch (err) {
-//     res.status(500);
-//     res.type('text').send('something went wrong');
-//   }
-
-// });
+    db.close();
+  } catch (err) {
+    res.status(500);
+    console.log(err);
+    res.type('text').send('An error occurred on the server. Try again later.');
+  }
+});
 
 app.use(express.static('public'));
 const PORT = process.env.PORT || 8000;

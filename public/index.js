@@ -29,14 +29,19 @@
     signupButton.addEventListener('click', signupView);
     logo.addEventListener('click', homeView);
 
+    /*---log in and sign up functionalities end----*/
+
     let search = id('search-term');
-    fetchReccomended('/smiskilistings')
+    fetchReccomended('/smiskilistings');
 
     let searchBar = qs("#search-btn");
     searchBar.addEventListener("click", function() {
-      document.querySelector("#search-results").innerHTML = "";
-      startSearchSort(search.value);
+      qs("#search-results").innerHTML = "";
+      qs("#search-individual-results").innerHTML = "";
+      filterSearchPartOne(search.value, '/search/:searchInput')
+      //startSearchSort(search.value);
       qs("#banner").classList.add("hidden");
+      qs("#recommended-boxes").classList.add("hidden");
     });
 
     let accountButton = id('account-button');
@@ -246,12 +251,7 @@
       let username = data[randomIndex].username;
       let listing = data[randomIndex]['name of listing'];
       let series = data[randomIndex]['series of listing'];
-
-      console.log(randomIndex);
-      console.log(data);
-      console.log(username);
-      console.log(listing);
-      console.log(series);
+      let orginalListing = listing;
 
       let container = qs("#reccomended" + i);
       container.classList.add("reccomendedboxes");
@@ -270,33 +270,135 @@
         listing = listing.toLowerCase();
       }
       smiskiiImg.src = "/img/series/" + series + "/" + listing + ".png";
-      smiskiiImg.alt = series + " picture";
+      smiskiiImg.alt = series + " " + orginalListing;
+      smiskiiImg.id = series + " " + orginalListing;
+      console.log(smiskiiImg.id);
       console.log(smiskiiImg.src);
       container.appendChild(smiskiiImg);
       let seriesName = gen('p');
-      seriesName.innerHTML = series;
+      seriesName.innerHTML = listing;
       console.log(seriesName);
       seriesName.classList.add("reccomended-name-card");
       container.appendChild(seriesName);
-      container.addEventListener("click", loadIndividualSmiskiiView);
+      container.addEventListener("click", reccomendedClickAction);
     }
   }
 
-  function loadIndividualSmiskiiView() {
-    console.log("hey!");
+  function reccomendedClickAction() {
+    console.log("COME HERE!");
+    console.log(this);
+    let article = id(this.id);
+    let img = article.querySelector("img");
+    let imgId = img.id;
+    console.log(imgId);
+    let chunks = imgId.split(" ");
+    let seriesName = chunks[0];
+    let name = chunks[1];
+    for(let i = 2; i < chunks.length; i++) {
+      name += chunks[i];
+    }
+    let url = "/smiskilisting/:smiskiName";
+
+    fetchListingInfo(url, name);
   }
 
-  function startSearchSort(search) {
-    fetchSeriesNames('/smiskiiseries')
-      .then((data) => {
-        console.log(data);
-        for(let i = 0; i < data.length; i++) {
-          if(search.toLowerCase() === data[i]){
-            seriesSearchView(search);
+  /**
+   * fetches data for a the likes for a yip and increments it by 1
+   * @param {string} url - the endpoint for API
+   * @param {string} name - the name of the listing
+   */
+  function fetchListingInfo(url, name) {
+    const params = new FormData();
+    params.append('smiskiName', name);
+
+    fetch(url, {
+      method: 'POST',
+      body: params
+    })
+      .then(statusCheck)
+      .then((resp) => resp.json())
+      .then(data => populateIndividualView(data))
+      .catch(handleError);
+  }
+
+  function populateIndividualView(data, search) {
+    // console.log(name);
+    // console.log("data");
+    // console.log(data);
+    // // console.log(data.Series);
+    // // console.log(data[0].Series);
+    // console.log(data[0].length == 2);
+    // console.log(data.isEmpty());
+    //if(data !== null && data[0].Series) {
+    if(!(data.length === 0) && data[0].Series) {
+      console.log("help");
+      seriesSearchView(search);
+    } else if(data !== null) {
+      console.log(data);
+      console.log("hello");
+        for (let i = 0; i < data.length; i++) {
+        let parentContainer = qs("#search-individual-results");
+
+        id("landingpage").classList.add("hidden");
+        id("recommended-boxes").classList.add("hidden");
+        let nameOfSmiski = data[i]['name of listing'];
+        let seriesName = data[i]['series of listing'];
+        let username = data[i].username;
+
+        let card = gen('article');
+        card.classList.add("individualcard");
+        card.classList.add("individualcard");
+
+        let imgLogo = gen('img');
+        if((/\s/.test(nameOfSmiski)) || nameOfSmiski.includes("-")) {
+          let allNames = "";
+          if(/\s/.test(nameOfSmiski)) {
+            allNames = nameOfSmiski.split(" ");
+          } else {
+            allNames = nameOfSmiski.split("-");
           }
+          nameOfSmiski = "";
+          for(let i = 0; i < allNames.length; i++) {
+            nameOfSmiski += allNames[i];
+          }
+          nameOfSmiski = nameOfSmiski.toLowerCase();
         }
-        // Use the fetched data here or perform additional operations
-      })
+        imgLogo.src = "/img/series/" + seriesName + "/" + nameOfSmiski + ".png";
+        imgLogo.classList.add("circlecardlogo");
+        card.appendChild(imgLogo);
+        let cardContent = gen('div');
+        cardContent.classList.add('indi-card-content');
+
+        let nameHeader = gen('h1');
+        nameHeader.classList.add('indi-card-header');
+        let usernameTag = gen('h2');
+        usernameTag.classList.add('indi-card-username');
+        nameHeader.innerHTML = "Username: " + username;
+        usernameTag.innerHTML = "Name of Smiski: " + nameOfSmiski;
+        cardContent.appendChild(nameHeader);
+        cardContent.appendChild(usernameTag);
+        card.appendChild(cardContent);
+        console.log(3);
+        parentContainer.appendChild(card);
+      }
+    } else {
+      let h1Tag = gen('h1');
+      h1Tag.innerHTML = "No Results Found. Please Search Again.";
+      qs("#search-individual-results").appendChild(h1Tag);
+    }
+  }
+
+  function filterSearchPartOne(search, url) {
+    const params = new FormData();
+    params.append('searchInput', search);
+
+    fetch(url, {
+      method: 'POST',
+      body: params
+    })
+      .then(statusCheck)
+      .then((resp) => resp.json())
+      .then(data => populateIndividualView(data, search))
       .catch(handleError);
   }
 
@@ -333,6 +435,7 @@
       seriesArticle.classList.add("series-card");
       let smiskiiImg = gen('img');
       let names = data[i].Names;
+      let originalNames = names;
       if((/\s/.test(names)) || names.includes("-")) {
         let allNames = "";
         if(/\s/.test(names)) {
@@ -353,7 +456,8 @@
       seriesName.innerHTML = data[i].Names;
       seriesName.classList.add("series-name-card");
       seriesArticle.appendChild(seriesName);
-      seriesArticle.addEventListener("click", loadSmiskiiSearchView);
+      //seriesArticle.addEventListener("click", populateIndividualView(data, search));
+      seriesArticle.addEventListener("click",() => loadSmiskiiSearchView(data, originalNames));
       qs("#search-results").appendChild(seriesArticle);
     }
   }
@@ -387,14 +491,27 @@
       seriesName.innerHTML = data[i].Names;
       seriesName.classList.add("series-name-card");
       seriesArticle.appendChild(seriesName);
-      seriesArticle.addEventListener("click", loadSmiskiiSearchView);
+      //seriesArticle.addEventListener("click", loadSmiskiiSearchView);
+      seriesArticle.addEventListener("click", () => {
+        document.querySelector("#search-results").innerHTML = "";
+        loadSmiskiiSearchView();
+      });
       parentContainer.appendChild(seriesArticle);
     }
   }
 
-  function loadSmiskiiSearchView() {
-    document.querySelector("#search-results").innerHTML = "";
+  //view for the individual smiskii
+  function loadSmiskiiSearchView(data, names) {
+    //document.querySelector("#search-results").innerHTML = "";
     console.log("hey");
+    console.log(data);
+    console.log(this);
+    console.log(names); //i have the indiviudal names
+    qs("#search-results").innerHTML = "";
+    qs("#search-individual-results").innerHTML = "";
+    filterSearchPartOne(names, '/search/:searchInput')
+
+    // populateIndividualView();
   }
 
   function handleError(err) {
