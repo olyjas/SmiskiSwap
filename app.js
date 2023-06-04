@@ -119,9 +119,9 @@ async function createUser(username, password, email) {
 // Route for listing creation
 app.post('/listing', async (req, res) => {
   const seller = req.body.seller;
-  const smiskiName = req.body['smiski-name'];
-  const seriesListing = req.body['series-of-listing'];
-  const selectedSmiski = req.body.selectedSmiski;
+  const listedSmiski = req.body['listed-smiski'];
+  const seriesListed = req.body['series-of-listing'];
+  const seekingSmiski = req.body['sought-smiski'];
   const additionalInfo = req.body['added-info'];
 
   const db = await getDBConnection();
@@ -130,8 +130,8 @@ app.post('/listing', async (req, res) => {
 
     // Insert a new listing entry into the database
     const insertQuery = `INSERT INTO singlesmiskilistings (name, username, [name of listing], ` +
-                        `[series of listing], [possible trade]) VALUES ('', ?, ?, ?, ?)`
-    await db.run(insertQuery, [seller, smiskiName, seriesListing, selectedSmiski, additionalInfo]);
+    `[series of listing], [possible trade], [trade info]) VALUES ('', ?, ?, ?, ?, ?)`
+    await db.run(insertQuery, [seller, listedSmiski, seriesListed, seekingSmiski, additionalInfo]);
     await db.close();
 
     // Send a response back to the frontend indicating success
@@ -146,20 +146,21 @@ app.post('/listing', async (req, res) => {
 
 
 //GET THE NAMES OF ALL OF THE SMISKI
-/*app.get('/allsmiskii', async function(req, res) {
+app.get('/allsmiskii', async function(req, res) {
   try {
     res.type('JSON');
     let db = await getDBConnection();
-    let query = 'SELECT names FROM smiskiinamesdata';
+    let query = 'SELECT Names FROM smiskiinamesdata';
     let results = await db.all(query);
     db.close();
+    console.log(results);
     res.json(results);
   } catch (err) {
     res.status(500);
     console.log(err);
     res.type('text').send('An error occurred on the server. Try again later.');
   }
-}); */
+});
 
 
 //nsearch and get the specfic smiskiis from a series if the search passed in was a series name

@@ -113,6 +113,10 @@
         console.log(data.message);
         let loginError = id('login-error');
         loginError.textContent = '';
+
+        // STORE LOGGED IN USER'S USERNAME IN LOCAL STORAGE
+        localStorage.setItem('username', username);
+
         signedIn = true;
         updateHeaderView();
         homeView();
@@ -213,6 +217,8 @@
     recommended.classList.remove('hidden');
     let accountView = id('account-view');
     accountView.classList.add('hidden');
+    let creatingListing = id('creating-listing');
+    creatingListing.classList.add('hidden');
   }
 
   function accountView() {
@@ -230,11 +236,114 @@
   }
 
   function createListingPage() {
-    console.log('went in create listing page');
-    let creatingListing = id('creating-listing');
-    console.log(creatingListing);
-    creatingListing.classList.remove('hidden');
+
+    let successfulListingMessage = id('successful-listing-message');
+    successfulListingMessage.textContent ='';
+
+    let unsuccessfulListingMessage = id('unsuccessful-listing-message');
+    unsuccessfulListingMessage.textContent ='';
+
+    let usernameOfListing = id('creating-listing-seller');
+    usernameOfListing.textContent = localStorage.getItem('username');
+    fetchSmiskiNamesForList();
+    fetchSmiskiNamesForSeek();
+    let createListing = id('creating-listing');
+    createListing.classList.remove('hidden');
+
+    // Add an event listener to the form submission
+    let listingForm = id('listing-form');
+    listingForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get the form input values
+    const seller = localStorage.getItem('username');
+    const listedSmiski = id('smiski-listed').value;
+    const seriesListed = id('series-listed').value;
+    const seekingSmiski = id('smiski-sought').value;
+    const additionalInfo = id('creating-additional-info').value;
+
+    const data = {
+    seller: seller,
+    'listed-smiski': listedSmiski,
+    'series-of-listing': seriesListed,
+    'sought-smiski': seekingSmiski,
+    'added-info': additionalInfo
+  };
+
+  // Send the POST request to the backend
+  fetch('/listing', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      // Listing created successfully
+      console.log('Listing created successfully');
+
+      successfulListingMessage.textContent ='Listing created!';
+
+      // Perform any additional actions or update the UI as needed
+    } else {
+      // Error creating the listing
+      console.error('Error creating listing');
+      unsuccessfulListingMessage.textContent ='There was an error creating the listing';
+      // Handle the error or display an error message to the user
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Handle any network or request errors
+  });
+});
+}
+
+  // Function to fetch and populate the smiski names for seeking
+async function fetchSmiskiNamesForSeek() {
+  const response = await fetch('/allsmiskii');
+  if (response.ok) {
+    const smiskiNames = await response.json();
+    const selectSmiskisToSeek = id('smiski-sought');
+
+    // Clear existing options
+    selectSmiskisToSeek.innerHTML = '';
+
+    // Create and append new options
+    smiskiNames.forEach((data) => {
+      const option = gen('option');
+      option.value = data.Names;
+      option.text = data.Names;
+      selectSmiskisToSeek.appendChild(option);
+    });
+  } else {
+    console.log('Failed to fetch smiski names');
   }
+}
+
+  // Function to fetch and populate the smiski names for listing
+  async function fetchSmiskiNamesForList() {
+    const response = await fetch('/allsmiskii');
+    if (response.ok) {
+      const smiskiNames = await response.json();
+      const selectSmiskisToList = id('smiski-listed');
+
+      // Clear existing options
+      selectSmiskisToList.innerHTML = '';
+
+      // Create and append new options
+      smiskiNames.forEach((data) => {
+        const option = gen('option');
+        option.value = data.Names;
+        option.text = data.Names;
+        selectSmiskisToList.appendChild(option);
+      });
+    } else {
+      console.log('Failed to fetch smiski names');
+    }
+  }
+
 
   function fetchReccomended(url) {
     fetch(url)
