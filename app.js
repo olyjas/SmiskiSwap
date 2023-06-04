@@ -40,7 +40,7 @@ async function getDBConnection() {
 }); */
 
 
-//search and get the specfic smiskiis from a series if the search passed in was a series name
+//nsearch and get the specfic smiskiis from a series if the search passed in was a series name
 app.get('/allsmiskiis', async function(req, res) {
   try {
     let search = req.query.search;

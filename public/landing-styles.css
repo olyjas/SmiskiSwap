@@ -66,13 +66,13 @@ body > header > img:hover {
   filter: grayscale(60%);
 }
 
-#account-buttons {
+#not-signed-in {
   display: flex;
   margin: 30px;
   gap: 10px;
 }
 
-#account-buttons > button {
+#not-signed-in > button {
   font-size: 15px;
   padding: 14px 16px;
   background-color: #a0cc74;
@@ -84,7 +84,7 @@ body > header > img:hover {
   font-weight: 400;
 }
 
-#account-buttons > button:hover {
+#not-signed-in > button:hover {
   background-color: white;
   border-color: #a0cc74;
   color: #a0cc74;

@@ -30,10 +30,31 @@
         <input id='search-term' type='text'>
         <button id='search-btn' class='buttons'>search</button>
       </div>
-      <div id="account-buttons" class='buttons'>
+
+      <!--not signed in view of header-->
+      <div id="not-signed-in">
         <button id="signup-btn">Sign up</button>
         <button id="login-btn">Log in</button>
       </div>
+
+      <!-- signed-in version of the header -->
+      <div id="signed-in" class='hidden'>
+        <div id="account-icon">
+          <!-- Add an icon for the account dropdown menu -->
+          <img src="img/account-icon.png" alt="Account Icon">
+        </div>
+        <div id="account-dropdown-content">
+          <!-- Add dropdown menu options for signed-in view -->
+          <a href="#" id="view-account-details">View Account Details</a>
+          <a href="#" id="make-listing">Make a Listing</a>
+          <a href="#" id="view-orders">View Orders/Swaps</a>
+          <a href="#" id="notifications">
+            <img src="img/notification-icon.png" alt="Notification Icon">
+            <span class="notification-count">3</span>
+          </a>
+        </div>
+      </div>
+
     </header>
      <!-- end of header view -->
 
