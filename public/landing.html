@@ -33,30 +33,32 @@
 
       <!--not signed in view of header-->
       <div id="not-signed-in">
-        <button id="signup-btn">Sign up</button>
-        <button id="login-btn">Log in</button>
+        <button id="signup-btn" class="hidden">Sign up</button>
+        <button id="login-btn" class="hidden">Log in</button>
       </div>
+      <!--END of not signed in view of header-->
 
       <!-- signed-in version of the header -->
-      <div id="signed-in" class='hidden'>
-        <div id="account-icon">
-          <!-- Add an icon for the account dropdown menu -->
-          <img src="img/account-icon.png" alt="Account Icon">
-        </div>
-        <div id="account-dropdown-content">
-          <!-- Add dropdown menu options for signed-in view -->
-          <a href="#" id="view-account-details">View Account Details</a>
-          <a href="#" id="make-listing">Make a Listing</a>
-          <a href="#" id="view-orders">View Orders/Swaps</a>
-          <a href="#" id="notifications">
-            <img src="img/notification-icon.png" alt="Notification Icon">
-            <span class="notification-count">3</span>
-          </a>
-        </div>
+      <div id="signed-in">
+        <img src="img/notification-icon.png" class='signed-in-icons' alt="Notification Icon">
+        <img src="img/account-icon.png" class='signed-in-icons' id='account-button' alt="Account Icon">
       </div>
-
+      <!-- END of signed-in version of the header -->
     </header>
      <!-- end of header view -->
+
+     <!-- Account view -->
+    <section id="account-view" class="hidden">
+      <!-- Sidebar details -->
+      <div class="sidebar">
+        <ul class="sidebar-menu">
+          <li><a href="#" id="manage-account">Manage Account Details</a></li>
+          <li><a href="#" id="create-listing">Create a Listing</a></li>
+          <li><a href="#" id="view-trade-history">View Trade History</a></li>
+          <li><a href="#" id="sign-out">Sign Out</a></li>
+        </ul>
+      </div>
+    </section>
 
     <hr>
     <main>
@@ -72,7 +74,6 @@
           </div>
         </section>
 
-
         <section id="recommended-boxes">
           <div class="recommended">
             <article id="reccomended1">
@@ -85,6 +86,7 @@
             </article>
           </div>
         </section>
+      </section>
 
       <!-- end of landing/homepage view -->
 
@@ -92,30 +94,67 @@
 
       <div id="login-page" class="hidden">
         <h2>Login</h2>
+        <form id="login-form">
           <label for="username">Username:</label>
           <input type="text" id="login-username" name="username" required><br><br>
           <label for="password">Password:</label>
           <input type="password" id="login-password" name="password" required><br><br>
           <input type="submit" value="Login">
+        </form>
           <button id="signup-from-login">Create an account</button>
           <button id="home-from-login" class="home">Home</button>
+          <p id="login-error"></p>
       </div>
       <div id="signup-page" class="hidden">
         <h2>Sign Up</h2>
-        <!--<form action="process-signup.php" method="POST">-->
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="username">Username:</label>
-            <input type="text" id="signup-username" name="username" required><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="signup-password" name="password" required><br><br>
+        <form id="signup-form">
+          <label for="email">Email:</label>
+          <input type="email" id="signup-email" name="email" required><br><br>
+          <label for="username">Username:</label>
+          <input type="text" id="signup-username" name="username" required><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="signup-password" name="password" required><br><br>
           <input type="submit" value="Sign Up">
+        </form>
           <p>Already have an account? <button id="login-from-signup">Log in</button></p>
           <button id="home-from-signup" class="home">Home</button>
-        <!--</form>-->
+          <p id="signup-error"></p>
       </div>
 
         <!--END OF LOGIN/SIGNUP PAGES-->
+
+      <!--START OF CREATING LISTING PAGE-->
+      <section id="creating-listing" class="hidden">
+        <div>
+          <form id="listing-form">
+            <div id="creating-listing-img">
+              <!-- append image src in here of the smiski that is selected -->
+            </div>
+            <label for="seller">Seller:</label>
+            <p id="creating-listing-seller">
+              <!-- fill text content in here with the username from database -->
+            </p>
+            <input type="text" id="creating-listing-smiski" name="smiski-name" required><br>
+            <label for="series-listed">Series of listing:</label>
+            <select id="all-series" name="series-of-listing">
+              <option value="bed">Bed Series</option>
+              <option value="dressing">Dressing Series</option>
+              <option value="living">Living Series</option>
+              <option value="museum">Museum Series</option>
+              <option value="work">Work Series</option>
+              <option value="yoga">Yoga Series</option>
+            </select>
+            <label for="individual-seeking">Smiski seeking:</label>
+            <select id="individual-smiski" name="selectedSmiski">
+              <!-- append options here of all smiskis from the database -->
+            </select>
+            <label for="additional-info">Additional Information:</label>
+            <input type="text" id="creating-additional-info" name="added-info" required><br>
+            <input type="submit" value="List">
+          </form>
+        </div>
+      </section>
+      <!--END OF CREATING LISTING PAGE-->
 
       <!-- search results page -->
       <!-- <button id='filter-btn' disabled>filter</button> -->

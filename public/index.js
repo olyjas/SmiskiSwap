@@ -9,6 +9,8 @@
 
 "use strict";
 (function() {
+  // Signed-In initial value is false, not signed in
+  let signedIn = false;
 
   window.addEventListener("load", init);
 
@@ -17,19 +19,15 @@
    */
   function init() {
 
+    updateHeaderView();
+
     let loginButton = id('login-btn');
     let signupButton = id('signup-btn');
     let logo = id ('logo-img');
+
     loginButton.addEventListener('click', loginView);
     signupButton.addEventListener('click', signupView);
     logo.addEventListener('click', homeView);
-
-    //   id("login").addEventListener("click", function() {
-    //     changePage("login", "login.html");
-    //   });
-    //}
-
-    /*---log in and sign up functionalities end----*/
 
     let search = id('search-term');
     fetchReccomended('/smiskilistings')
@@ -40,6 +38,32 @@
       startSearchSort(search.value);
       qs("#banner").classList.add("hidden");
     });
+
+    let accountButton = id('account-button');
+    accountButton.addEventListener('click', accountView);
+  }
+
+  function updateHeaderView() {
+    const signedInElements = qsa('#signed-in .signed-in-icons');
+    const notSignedInElements = qsa('#not-signed-in button');
+
+    if (signedIn) {
+      // User is signed in
+      signedInElements.forEach(element => {
+        element.classList.remove('hidden');
+      });
+      notSignedInElements.forEach(element => {
+        element.classList.add('hidden');
+      });
+    } else {
+      // User is not signed in
+      signedInElements.forEach(element => {
+        element.classList.add('hidden');
+      });
+      notSignedInElements.forEach(element => {
+        element.classList.remove('hidden');
+      });
+    }
   }
 
   function loginView() {
@@ -48,11 +72,55 @@
     signupPage.classList.add('hidden');
     let loginPage = id('login-page');
     loginPage.classList.remove('hidden');
-    let login = id('signup-from-login');
-    login.addEventListener('click',  signupView);
+
+    updateHeaderView();
+
+    // Handle login form submission
+    let loginForm = id('login-form');
+    loginForm.addEventListener('submit', loginUser);
+
+    let signupLink = id('signup-from-login');
+    signupLink.addEventListener('click',  signupView);
     let backButton = id('home-from-login');
     backButton.addEventListener('click', homeView);
   }
+
+  // Function to handle login form submission
+  async function loginUser(event) {
+    event.preventDefault();
+
+    // Get the login form input values
+    const username = id('login-username').value;
+    const password = id('login-password').value;
+
+    // Send a POST request to the login route
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+      });
+
+      if (response.ok) {
+        // Login successful
+        const data = await response.json();
+        console.log(data.message);
+        let loginError = id('login-error');
+        loginError.textContent = '';
+        signedIn = true;
+        updateHeaderView();
+        homeView();
+      } else {
+        // Login unsuccesful
+        const errorData = await response.json();
+        console.log(errorData.message);
+        let loginError = id('login-error');
+        loginError.textContent = 'Incorrect username or password';
+      }
+  }
+////////
+
 
   function signupView() {
     clearForLoginSignup();
@@ -60,17 +128,60 @@
     loginPage.classList.add('hidden');
     let signupPage = id('signup-page');
     signupPage.classList.remove('hidden');
-    let login = id('login-from-signup');
-    login.addEventListener('click', loginView);
+
+    updateHeaderView();
+
+    // Handle login form submission
+    let signupForm = id('signup-form');
+    signupForm.addEventListener('submit', signupUser);
+
+    let loginLink = id('login-from-signup');
+    loginLink.addEventListener('click', loginView);
     let backButton = id('home-from-signup');
     backButton.addEventListener('click', homeView);
   }
 
+  async function signupUser(event) {
+    event.preventDefault();
+
+    // Get the signup form input values
+    const username = id('signup-username').value;
+    const password = id('signup-password').value;
+    const email = id('signup-email').value;
+
+    // Send a POST request to the signup API endpoint
+    const response = await fetch('/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password, email })
+    });
+
+    if (response.ok) {
+      // Signup successful
+      const data = await response.json();
+      console.log(data.message);
+      let signupError = id('signup-error');
+      signupError.textContent = '';
+    // Perform any necessary actions after successful signup
+    } else {
+      // Signup unsuccessful
+      const errorData = await response.json();
+      console.log(errorData.message);
+      // Handle the error or display an error message to the user
+      let signupError = id('signup-error');
+      signupError.textContent = "Username unavailable";
+    }
+  }
+
   function clearForLoginSignup() {
+    let recommended = id('recommended-boxes');
     let header = qs('header');
     let banner = id('banner');
     header.classList.add('hidden');
     banner.classList.add('hidden');
+    recommended.classList.add('hidden');
     let searchResults = id('search-results');
     searchResults.classList.add('hidden');
     let accountDetails = id('account-details');
@@ -93,6 +204,31 @@
     signupPage.classList.add('hidden');
     let loginPage = id('login-page');
     loginPage.classList.add('hidden');
+    let recommended = id('recommended-boxes');
+    recommended.classList.remove('hidden');
+    let accountView = id('account-view');
+    accountView.classList.add('hidden');
+  }
+
+  function accountView() {
+    let accountView = id('account-view');
+    accountView.classList.remove('hidden');
+    let recommended = id('recommended-boxes');
+    let banner = id('banner');
+    banner.classList.add('hidden');
+    recommended.classList.add('hidden');
+    let searchResults = id('search-results');
+    searchResults.classList.add('hidden');
+    // FETCH REQUEST FOR PROFILE, in progress backend wise
+    let createListing = id('create-listing');
+    createListing.addEventListener('click', createListingPage);
+  }
+
+  function createListingPage() {
+    console.log('went in create listing page');
+    let creatingListing = id('creating-listing');
+    console.log(creatingListing);
+    creatingListing.classList.remove('hidden');
   }
 
   function fetchReccomended(url) {
@@ -265,6 +401,10 @@
     console.log(err);
   }
 
+///////////////////
+
+
+
   /**
    * gets all the yips for just one user
    * @param {string} url - the endpoint for API
@@ -313,6 +453,15 @@
   function qs(selector) {
     return document.querySelector(selector);
   }
+
+  /**
+   * Shortcut function for query selecting all items of a sort.
+   * @param {string} selector - The CSS selector to match.
+   * @returns {NodeList} A static NodeList containing all elements matching the specified selector.
+   */
+    function qsa(selector) {
+      return document.querySelectorAll(selector);
+    }
 
   /**
    * Makes a new element and returns it
