@@ -32,6 +32,7 @@
     /*---log in and sign up functionalities end----*/
 
     let search = id('search-term');
+    fetchReccomended('/smiskilistings')
 
     let searchBar = qs("#search-btn");
     searchBar.addEventListener("click", function() {
@@ -135,37 +136,18 @@
       smiskiiImg.src = "/img/series/" + series + "/" + listing + ".png";
       smiskiiImg.alt = series + " picture";
       console.log(smiskiiImg.src);
-
-    //this is redundant code
-    // let seriesArticle = gen('article');
-    //   seriesArticle.classList.add("series-card");
-    //   let smiskiiImg = gen('img');
-    //   let names = data[i].Names;
-    //   if((/\s/.test(names)) || names.includes("-")) {
-    //     let allNames = "";
-    //     if(/\s/.test(names)) {
-    //       allNames = names.split(" ");
-    //     } else {
-    //       allNames = names.split("-");
-    //     }
-    //     names = "";
-    //     for(let i = 0; i < allNames.length; i++) {
-    //       names += allNames[i];
-    //     }
-    //     names = names.toLowerCase();
-    //   }
-    //   smiskiiImg.src = "/img/series/" + search + "/" + names + ".png";
-    //   smiskiiImg.alt = search + " picture";
-    //   seriesArticle.appendChild(smiskiiImg);
-    //   let seriesName = gen('p');
-    //   seriesName.innerHTML = data[i].Names;
-    //   seriesName.classList.add("series-name-card");
-    //   seriesArticle.appendChild(seriesName);
-    //   seriesArticle.addEventListener("click", loadSmiskiiSearchView);
-    //   qs("#search-results").appendChild(seriesArticle);
-    ////
-
+      container.appendChild(smiskiiImg);
+      let seriesName = gen('p');
+      seriesName.innerHTML = series;
+      console.log(seriesName);
+      seriesName.classList.add("reccomended-name-card");
+      container.appendChild(seriesName);
+      container.addEventListener("click", loadIndividualSmiskiiView);
     }
+  }
+
+  function loadIndividualSmiskiiView() {
+    console.log("hey!");
   }
 
   function startSearchSort(search) {
