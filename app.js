@@ -166,6 +166,29 @@ app.get('/series', async function(req, res) {
   }
 });
 
+// Endpoint for handling the swap request
+app.get('/storeSwap', async (req, res) => {
+  const otherSeries = req.query.otherSeries;
+  const otherName = req.query.otherName;
+  const mySeries = req.query.mySeries;
+  const myName = req.query.myName;
+
+  try {
+    res.type('JSON');
+    let db = await getDBConnection();
+    let seriesQuery = 'INSERT DISTINCT series FROM smiskiinamesdata';
+    let seriesResults = await db.all(seriesQuery);
+
+    db.close();
+    res.json(finalFormat);
+  } catch (err) {
+    res.status(500);
+    console.log(err);
+    res.type('text').send('An error occurred on the server. Try again later.');
+  }
+});
+
+
 //search results
 app.post('/search/:searchInput', async function(req, res) {
   const searchInput = req.body.searchInput;

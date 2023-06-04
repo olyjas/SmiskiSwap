@@ -21,7 +21,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 1000px; */
   margin-top: 20px;
   margin-bottom: 20px;
   border: 1px solid #234F1E;
@@ -29,16 +28,16 @@ body {
 
 #banner img {
   height: 290px;
-  padding-bottom: 43px; /* Increase the padding at the bottom */
+  padding-bottom: 43px;
 }
 
 
 #banner-text {
-  position: absolute; /* Add absolute positioning */
-  top: 17.5%; /* Position it vertically in the middle */
-  left: 50%; /* Position it horizontally in the middle */
-  transform: translate(-50%, -50%); /* Center it precisely */
-  text-align: center; /* Center the text */
+  position: absolute;
+  top: 17.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 #banner-text h2 {
@@ -107,7 +106,7 @@ hr {
 }
 
 #search-term {
-  width: 800px; /* Set a maximum width for the input */
+  width: 800px;
   padding: 10px;
   font-size: 18px;
   border-radius: 8px;
@@ -135,8 +134,6 @@ hr {
 #about-button-container {
   position: absolute;
   top: 49.5%;
-  /* left: 50%;
-  transform: translate(-50%, -50%); */
 }
 
 #about-button {
@@ -154,7 +151,6 @@ hr {
 #about-button:hover {
   background-color: #afc59ac4;
 }
-
 
 /* ----account details css---- */
 
@@ -241,7 +237,6 @@ hr {
   grid-template-columns: repeat(3, 1fr);
   gap: 60px;
   margin-top: 5%;
-  /* gap: 10%; */
 }
 
 .series-card {
@@ -252,7 +247,6 @@ hr {
   background-color: #f5f5f5;
   border-radius: 8px;
   padding: 60px;
-  /* padding: 20%; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -285,7 +279,7 @@ input[type="password"] {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  box-sizing: border-box; /* Added property */
+  box-sizing: border-box;
 }
 
 input[type="submit"] {
@@ -308,7 +302,6 @@ input[type="submit"] {
   margin-bottom: 25px;
 }
 
-
 #login-page,
 #signup-page {
   position: absolute;
@@ -329,7 +322,7 @@ input[type="submit"] {
 
 #login-page input,
 #signup-page input {
-  margin: 0; /* Added property */
+  margin: 0;
 }
 
 #login-from-signup,
@@ -371,19 +364,6 @@ input[type="submit"] {
   display: flex;
   justify-content: space-between;
 }
-
-/* #recommended-boxes {
-  display: flex;
-  flex-direction: row;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: space-between;
-  margin-top: 5%;
-}
-
-.recommended {
-  width: calc(25% - 15px);
-  margin-bottom: 30px;
-} */
 
 .recommended article {
   display: flex;
@@ -433,7 +413,6 @@ input[type="submit"] {
   width: 40%;
   height: auto;
   border-radius: 50%;
-  /* margin-bottom: 20px; */
 }
 
 .indi-card-header {
@@ -450,8 +429,199 @@ input[type="submit"] {
 
 /*end individual search results */
 
+/*indiviudal listing page css*/
+
+#smiski-listing-info {
+  display: flex;
+}
+
+.left-side-smiski-listing-photo {
+  width: 50%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.specfic-listing-info-box {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 60px;
+  margin-left: 35px;
+  text-align: center;
+}
+
+.specfic-listing-info-box h1,
+.specfic-listing-info-box h2,
+.specfic-listing-info-box h3 {
+  margin-top: 10px;
+}
+
+.specfic-listing-info-box button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.specfic-listing-info-box button:hover {
+  background-color: #45a049;
+}
+
+.specfic-listing-info-box button:focus {
+  outline: none;
+}
+
+.specfic-listing-info-box button:active {
+  background-color: #3e8e41;
+  transform: translateY(1px);
+}
+
+/*end*/
+
+/* swap css */
+
+#swap-views {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swap-left-side-card {
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-right: 40px;
+}
+
+.circle-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.actually-swapping-btn {
+  background-color: #218838;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.actually-swapping-btn:hover {
+  background-color: #218838;
+}
+
+.actually-swapping-btn:active {
+  background-color: #218838;
+}
+
+.swap-right-side-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-left: 40px;
+}
+
+.sexy-name-input-btn {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.sexy-enter-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.sexy-enter-btn:hover {
+  background-color: #218838;
+}
+
+.sexy-enter-btn:active {
+  background-color: #1e7e34;
+}
+
+/* end swap css */
+
+/* transaction page */
+
+#transaction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#transaction-details {
+  align-items: center;
+  text-align: center;
+}
+
+#transaction .circlecardlogo {
+  margin-right: 40px;
+}
+
+#transaction-form {
+  max-width: 400px;
+  background-color: #f5f5f5;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#transaction-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#transaction-form input[type="text"],
+#transaction-form input[type="tel"],
+#transaction-form input[type="email"],
+#transaction-form input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#transaction-form button[type="submit"] {
+  background-color: #218838;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#transaction-form button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+#transaction-form button[type="submit"]:active {
+  background-color: #218838;
+}
+
+/* end transaction page */
+
  /* hidden class */
 
 .hidden {
   display: none !important;
 }
+
+
