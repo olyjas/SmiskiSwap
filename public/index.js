@@ -431,14 +431,7 @@ async function fetchSmiskiNamesForSeek() {
   }
 
   function populateIndividualView(data, search) {
-    // console.log(name);
-    // console.log("data");
-    // console.log(data);
-    // // console.log(data.Series);
-    // // console.log(data[0].Series);
-    // console.log(data[0].length == 2);
-    // console.log(data.isEmpty());
-    //if(data !== null && data[0].Series) {
+
     if(!(data.length === 0) && data[0].Series) {
       console.log("help");
       seriesSearchView(search);
@@ -451,6 +444,7 @@ async function fetchSmiskiNamesForSeek() {
         id("landingpage").classList.add("hidden");
         id("recommended-boxes").classList.add("hidden");
         let nameOfSmiski = data[i]['name of listing'];
+        let originalNames = nameOfSmiski;
         let seriesName = data[i]['series of listing'];
         let username = data[i].username;
 
@@ -488,6 +482,12 @@ async function fetchSmiskiNamesForSeek() {
         cardContent.appendChild(usernameTag);
         card.appendChild(cardContent);
         console.log(3);
+        console.log("HELLO");
+        card.addEventListener("click", () => {
+          //qs("#search-results").innerHTML = "";
+          smiskiAdditionalInfo(data, originalNames, username);
+        });
+        // card.addEventListener("click", );
         parentContainer.appendChild(card);
       }
     } else {
@@ -495,6 +495,237 @@ async function fetchSmiskiNamesForSeek() {
       h1Tag.innerHTML = "No Results Found. Please Search Again.";
       qs("#search-individual-results").appendChild(h1Tag);
     }
+  }
+
+  //this is supposed to be the view of the specifc listing of a smiski from a user
+  function smiskiAdditionalInfo(data, originalNames, username) {
+    console.log("this is supposed to be the view for the specfic listing");
+    console.log(data);
+    console.log(originalNames);
+    console.log(username);
+    qs("#search-results").innerHTML = "";
+    qs("#search-individual-results").innerHTML = "";
+
+    //getting the specific listing of the user out of the list of all users
+    let found = false;
+    //let listingInfo =[];
+    let index = 0;
+    while(!found) {
+      let dataUsername = data[index].username;
+      if(dataUsername === username) {
+        found = true;
+        data = data[index];
+      } else {
+        index++;
+      }
+    }
+    console.log(data);
+
+    //generating the page view with the info
+    let parentContainer = qs("#smiski-listing-info");
+
+    //the left (50%) side of the page will be a photo of the smiski
+    let leftSideImg = gen('img');
+    let listingName = data['name of listing'];
+    if((/\s/.test(listingName)) || listingName.includes("-")) {
+      let allNames = "";
+      if(/\s/.test(listingName)) {
+        allNames = listingName.split(" ");
+      } else {
+        allNames = listingName.split("-");
+      }
+      listingName = "";
+      for(let i = 0; i < allNames.length; i++) {
+        listingName += allNames[i];
+      }
+      listingName = listingName.toLowerCase();
+    }
+    let seriesName = data['series of listing'];
+    leftSideImg.src = "/img/series/" + seriesName + "/" + listingName + ".png";
+    leftSideImg.alt = seriesName + " " + listingName;
+    leftSideImg.id = seriesName + " " + listingName;
+    // leftSideImg.classList.add('left-side-smiski-listing-photo');
+    // parentContainer.appendChild(leftSideImg);
+
+    //the right side will house all of the information about the smiskii
+    let card = gen('article');
+    let h1NameTag = gen('h1');
+    let h2Username = gen('h2');
+    let h2PossibleTrade = gen('h2');
+    let h3AdditionalInfo = gen('h3');
+    let swapBtn = gen('button');
+    swapBtn.id = "swap-button";
+
+    h1NameTag.textContent = "smiski name: " + data['name of listing'];
+    h2Username.textContent = "username of seller: " + username;
+    h2PossibleTrade.textContent = "list of possible trades: " + data['possible trade'];
+    h3AdditionalInfo.textContent = "any additional information: " + data['trade info'];
+    swapBtn.innerHTML = "REQUEST SWAP";
+    card.appendChild(h1NameTag);
+    card.appendChild(h2Username);
+    card.appendChild(h2PossibleTrade);
+    card.appendChild(h3AdditionalInfo);
+    card.appendChild(swapBtn);
+    swapBtn.addEventListener("click", () => initateSwap(data, card, leftSideImg));
+    card.classList.add('specfic-listing-info-box');
+    leftSideImg.classList.add('left-side-smiski-listing-photo');
+    parentContainer.appendChild(leftSideImg);
+    parentContainer.appendChild(card);
+  }
+
+  //marks the beginning of the swap functionality
+  function initateSwap(data, otherCard, otherPic) {
+    console.log("initate swap");
+    console.log(data);
+    console.log(otherCard);
+    console.log(otherPic);
+    qs("#smiski-listing-info").innerHTMl = "";
+    let parentContainer = qs("#swap-views");
+    id('swap-button').classList.add('hidden');
+    otherCard.classList.remove('specfic-listing-info-box');
+
+    //create the card on the left side
+    let leftSideCard = gen('article');
+    otherPic.classList.add("circle-logo");
+    otherCard.classList.add("swap-left-card");
+    leftSideCard.appendChild(otherPic);
+    leftSideCard.appendChild(otherCard);
+    leftSideCard.classList.add('swap-left-side-card');
+
+    //create the buttons in the middle
+    let btnContainer = gen('article');
+    let swapBtn = gen('button');
+    swapBtn.innerHTML = "SWAP!";
+    swapBtn.classList.add("actually-swapping-btn");
+    btnContainer.appendChild(swapBtn);
+    swapBtn.id = "actually-swapping"
+    swapBtn.disabled = true;
+
+    //create the swap you are suggesting on the right side
+    let rightSideCard = gen('article');
+    let rightSideImg = gen('img');
+    rightSideImg.src = "/img/logo.png"
+    rightSideImg.alt = "default logo";
+    rightSideImg.id = "right-side-img-default"
+    rightSideImg.classList.add("circle-logo");
+    rightSideCard.appendChild(rightSideImg);
+
+    let searchInput = gen('input');
+    searchInput.id = "search-input";
+    searchInput.type = 'text';
+    searchInput.placeholder = 'enter the name of the smiski you choose to swap!';
+    let submitBtn = gen('button');
+    submitBtn.classList.add("sexy-enter-btn");
+    submitBtn.innerHTML = "Enter Name!"
+    searchInput.classList.add("sexy-name-input-btn");
+    rightSideCard.appendChild(searchInput);
+    rightSideCard.appendChild(submitBtn);
+    rightSideCard.classList.add('swap-right-side-card');
+
+    //append everything to the parent node
+    parentContainer.appendChild(leftSideCard);
+    parentContainer.appendChild(btnContainer);
+    parentContainer.appendChild(rightSideCard);
+
+    submitBtn.addEventListener("click", function() {
+      //checkAndGetSmiski(searchInput.innerHTML);
+      let input = searchInput.value;
+      filterSearchPartTwo(input, '/search/:searchInput', leftSideCard)
+      swapBtn.disabled = false;
+    });
+  }
+
+  //fetch data about the inputed smiski
+  function checkAndGetSmiski(data, search, otherCard) {
+    console.log("ello");
+    console.log(data);
+    console.log(otherCard);
+    // let nameAndSeries = otherCard.img.id;
+    let nameAndSeries = otherCard.querySelector('img').id;
+    console.log(nameAndSeries);
+    console.log(search);
+    if(data.length !== 0) {
+      //change the img
+      let rightImg = qs("#right-side-img-default");
+      rightImg.src = "/img/series/" + data[0]['series of listing'] + "/" + data[0]['name of listing'] + ".png";
+      rightImg.alt = data['series of listing'] + "/" + data['name of listing'];
+
+      // qs('#actually-swapping').addEventListener("click", () => confirmSwapPage(data));
+      qs('#actually-swapping').addEventListener("click", function() {
+        confirmSwapPage(data, nameAndSeries, data[0]['series of listing'],  data[0]['name of listing']);
+        //addSwapHistory(nameAndSeries, data[0]['series of listing'],  data[0]['name of listing']);
+      });
+    }
+  }
+
+  function addSwapHistory(nameAndSeries, mySeries, myListing) {
+    nameAndSeries = nameAndSeries.split(" ");
+    let gettingThisSeries = nameAndSeries[0];
+    let gettingThisName = nameAndSeries[1];
+    for(let i = 2; i < nameAndSeries.length; i++) {
+      gettingThisName += nameAndSeries[i];
+    }
+    console.log(gettingName);
+  }
+
+  function confirmSwapPage(data, nameAndSeries, mySeries, mySmiski) {
+    console.log("okay lets go");
+    qs('#transaction').classList.remove('hidden');
+    qs('#swap-views').innerHTML = "";
+    nameAndSeries = nameAndSeries.split(" ");
+    let gettingThisSeries = nameAndSeries[0];
+    let gettingThisName = nameAndSeries[1];
+    for(let i = 2; i < nameAndSeries.length; i++) {
+      gettingThisName += nameAndSeries[i];
+    }
+
+    //display the transaction details
+    let transactionDetails = gen('article');
+    //let pTag = gen('p');
+    let pTag = qs("#transaction-details");
+    pTag.innerHTML = "You are swapping your " + mySmiski + " of the series " +
+    mySeries + " for the smiski " + gettingThisName + " from " + gettingThisSeries;
+    transactionDetails.appendChild(pTag);
+    transactionDetails.classList.add('transaction-swap');
+    qs('#transaction').appendChild(transactionDetails);
+
+    let submitButton = document.querySelector('#transaction-form button[type="submit"]');
+    submitButton.addEventListener('click', function() {
+      storeSwap(gettingThisSeries, gettingThisName, mySeries, mySmiski);
+    });
+  }
+
+  function storeSwap(otherSeries, otherName, mySeries, myName) {
+    const baseURL = '/storeSwap';
+
+    const url = new URL(baseURL);
+    url.searchParams.append('otherSeries', otherSeries);
+    url.searchParams.append('otherName', otherName);
+    url.searchParams.append('mySeries', mySeries);
+    url.searchParams.append('myName', myName);
+
+    fetch(url)
+      .then(response => response.json())
+      // .then(data => {
+      //   // Handle the response data
+      // })
+      .catch(error => {
+        // Handle any errors
+      });
+  }
+
+  function filterSearchPartTwo(search, url, otherCard) {
+    const params = new FormData();
+    params.append('searchInput', search);
+
+    fetch(url, {
+      method: 'POST',
+      body: params
+    })
+      .then(statusCheck)
+      .then((resp) => resp.json())
+      .then(data => checkAndGetSmiski(data, search, otherCard))
+      .catch(handleError);
   }
 
   function filterSearchPartOne(search, url) {
@@ -523,7 +754,6 @@ async function fetchSmiskiNamesForSeek() {
       url = "/allsmiskiis/?search=" + search.toLowerCase();
     }
     fetchNamesinSeries(search, url);
-
   }
 
   function fetchNamesinSeries(search, url) {
@@ -539,6 +769,8 @@ async function fetchSmiskiNamesForSeek() {
   function buildSearchViewCards(search, data) {
     //this data should have all of the names
     //data[i].Names
+    console.log("buildSearchViewCards");
+    console.log(data);
     for(let i = 0; i < 6; i++) {
       let seriesArticle = gen('article');
       seriesArticle.classList.add("series-card");
@@ -567,49 +799,15 @@ async function fetchSmiskiNamesForSeek() {
       seriesArticle.appendChild(seriesName);
       //seriesArticle.addEventListener("click", populateIndividualView(data, search));
       seriesArticle.addEventListener("click",() => loadSmiskiiSearchView(data, originalNames));
+      // seriesArticle.addEventListener("click", function() {
+      //   loadSmiskiiSearchView(data, originalNames);
+      // });
+
+      console.log("COME HERE");
       qs("#search-results").appendChild(seriesArticle);
     }
   }
 
-  //this is the method that i want to be able to call whenever making cards
-  //of some sort. right now, we will test the functionalities with the reccomeended
-  //section on the home page or maybe i use this for the other search results actually
-  function buildCards(search, data, num, parentContainer) {
-    for(let i = 0; i < num; i++) {
-      let seriesArticle = gen('article');
-      seriesArticle.classList.add("series-card");
-      let smiskiiImg = gen('img');
-      let names = data[i].Names;
-      if((/\s/.test(names)) || names.includes("-")) {
-        let allNames = "";
-        if(/\s/.test(names)) {
-          allNames = names.split(" ");
-        } else {
-          allNames = names.split("-");
-        }
-        names = "";
-        for(let i = 0; i < allNames.length; i++) {
-          names += allNames[i];
-        }
-        names = names.toLowerCase();
-      }
-      smiskiiImg.src = "/img/series/" + search + "/" + names + ".png";
-      smiskiiImg.alt = search + " picture";
-      seriesArticle.appendChild(smiskiiImg);
-      let seriesName = gen('p');
-      seriesName.innerHTML = data[i].Names;
-      seriesName.classList.add("series-name-card");
-      seriesArticle.appendChild(seriesName);
-      //seriesArticle.addEventListener("click", loadSmiskiiSearchView);
-      seriesArticle.addEventListener("click", () => {
-        document.querySelector("#search-results").innerHTML = "";
-        loadSmiskiiSearchView();
-      });
-      parentContainer.appendChild(seriesArticle);
-    }
-  }
-
-  //view for the individual smiskii
   function loadSmiskiiSearchView(data, names) {
     //document.querySelector("#search-results").innerHTML = "";
     console.log("hey");
@@ -619,8 +817,6 @@ async function fetchSmiskiNamesForSeek() {
     qs("#search-results").innerHTML = "";
     qs("#search-individual-results").innerHTML = "";
     filterSearchPartOne(names, '/search/:searchInput')
-
-    // populateIndividualView();
   }
 
   function handleError(err) {
@@ -699,3 +895,4 @@ async function fetchSmiskiNamesForSeek() {
   }
 
 })();
+
