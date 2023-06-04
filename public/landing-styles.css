@@ -56,19 +56,35 @@ body > header {
   height: 80px;
 }
 
-body > header > img {
+#logo-img {
   width: 3.5%;
-  margin: 40px;
+  margin-left: 60px;
+  margin-right: 70px;
 }
 
-body > header > img:hover {
+#logo-img:hover,
+.signed-in-icons:hover {
+  cursor: pointer;
   filter: grayscale(60%);
 }
 
-#not-signed-in {
+#not-signed-in,
+#signed-in {
   display: flex;
   margin: 30px;
-  gap: 10px;
+}
+
+.signed-in-icons {
+  width:75px;
+  height: 75px;
+}
+
+#signed-in {
+  gap: 0px;
+}
+
+#account-button {
+  margin-right: 40px;
 }
 
 #not-signed-in > button {
@@ -89,6 +105,10 @@ body > header > img:hover {
   color: #a0cc74;
 }
 
+#login-btn {
+  margin-left: 20px;
+}
+
 body {
   background-color: white;
   margin: 0;
@@ -102,11 +122,11 @@ hr {
 #search-header {
   display: flex;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
 }
 
 #search-term {
-  width: 800px;
+  width: 810px; /* Set a maximum width for the input */
   padding: 10px;
   font-size: 18px;
   border-radius: 8px;
@@ -267,15 +287,34 @@ hr {
 
 /* LOGIN/SIGNUP STYLING */
 
-#signup-page label,
-#login-page label {
-  width: 100%;
+#signup-page label {
+  width: 160%;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 110%;
+#login-page label {
+  width: 150%;
+}
+
+#login-page p,
+#signup-error {
+  margin-top: 5px;
+  color: red;
+}
+
+#signup-page input[type="text"],
+#signup-page input[type="email"],
+#signup-page input[type="password"] {
+  width: 160%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; /* Added property */
+}
+
+#login-page input[type="text"],
+#login-page input[type="email"],
+#login-page input[type="password"] {
+  width: 150%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -295,11 +334,29 @@ input[type="submit"] {
 }
 
 #login-page input[type="submit"] {
-  margin-bottom: 30px;
+  width: 80%;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 #login-page button {
   margin-bottom: 25px;
+}
+
+#login-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+#signup-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
 }
 
 #login-page,
@@ -319,6 +376,7 @@ input[type="submit"] {
   padding: 50px 90px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 #login-page input,
 #signup-page input {
@@ -624,4 +682,37 @@ input[type="submit"] {
   display: none !important;
 }
 
+.sidebar {
+  width: 250px;
+  background-color: #f1f1f1;
+  position: fixed;
+  top: 80px;
+  right: 0;
+  height: calc(100% - 80px);
+  z-index: 1;
+}
 
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar-menu li:last-child {
+  border-bottom: none;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar-menu li a:hover {
+  background-color: #ddd;
+}
