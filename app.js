@@ -114,6 +114,92 @@ async function createUser(username, password, email) {
   }
 }
 
+//get list of listings with multiple names
+
+/*app.post('/listing', async (req, res) => {
+  const data = req.body.data;
+
+  try {
+    // Perform the necessary data processing
+    checkData(data)
+      .then((listings) => {
+        // Send the listings as a response back to the frontend
+        res.json(listings);
+      })
+      .catch((error) => {
+        console.error('Error fetching listings:', error);
+        res.status(500).send('An error occurred while fetching listings');
+      });
+  } catch (error) {
+    console.error('Error processing data:', error);
+    res.status(500).send('An error occurred while processing data');
+  }
+});
+
+async function checkData(data) {
+  let names = data['swap history'];
+  if (names == null) {
+    names = data['possible trades'];
+  }
+
+  try {
+    const db = await getDBConnection();
+
+    // Generate the placeholders for the names in the query
+    const placeholders = names.map(() => '?').join(',');
+
+    // Create the query dynamically with the generated placeholders
+    const query = `SELECT * FROM singlesmiskilistings WHERE \`name of listing\` IN (${placeholders})`;
+
+    // Fetch the listings using the query and names array
+    const results = await db.all(query, names);
+
+    db.close();
+
+    return results;
+  } catch (error) {
+    throw error;
+  }
+} */
+
+app.post('/listing/:username', async (req, res) => {
+  const username = req.body.username;
+
+  try {
+    const db = await getDBConnection();
+
+    // Fetch the data for the specified username
+    let query = `SELECT * FROM userinfostorage WHERE username = ?`;
+    let results = await db.all(query, [username]);
+    console.log(results);
+    results = checkData(results);
+
+    db.close();
+
+    // Extract the columns 'possible trades' and 'swap history' from the fetched data
+    // const listings = results.map((result) => ({
+    //   'possible trades': result['possible trades'],
+    //   'swap history': result['swap history']
+    // }));
+
+    // Send the extracted listings as a response back to the frontend
+    res.json(results);
+  } catch (error) {
+    console.error('Error fetching listings:', error);
+    res.status(500).send('An error occurred while fetching listings');
+  }
+});
+
+function checkData(data) {
+  let names = data[0]['swapped for history'];
+  console.log(names);
+  return names;
+
+}
+
+//END HERE
+
+
 // CREATING A LISTING
 
 // Route for listing creation
@@ -146,11 +232,11 @@ app.post('/listing', async (req, res) => {
 
 
 //GET THE NAMES OF ALL OF THE SMISKI
-/*app.get('/allsmiskii', async function(req, res) {
+app.get('/allsmiskii', async function(req, res) {
   try {
     res.type('JSON');
     let db = await getDBConnection();
-    let query = 'SELECT names FROM smiskiinamesdata';
+    let query = 'SELECT Names FROM smiskiinamesdata';
     let results = await db.all(query);
     db.close();
     res.json(results);
@@ -159,7 +245,7 @@ app.post('/listing', async (req, res) => {
     console.log(err);
     res.type('text').send('An error occurred on the server. Try again later.');
   }
-}); */
+});
 
 
 //nsearch and get the specfic smiskiis from a series if the search passed in was a series name
@@ -203,8 +289,13 @@ app.post('/smiskilisting/:smiskiName', async function(req, res) {
     let db = await getDBConnection();
     //use the distinct keyword instead
     //let query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing` =?';
-    let query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing`=?';
-    let results = await db.all(query, smiski);
+    //---
+    //let query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing`=?';
+    //let results = await db.all(query, smiski);
+
+    let query = 'SELECT * FROM singlesmiskilistings WHERE REPLACE(`name of listing`, " ", "") LIKE ?';
+    let results = await db.all(query, `%${smiski}%`);
+
     db.close();
     res.json(results);
   } catch (err) {
@@ -294,15 +385,32 @@ app.get('/storeSwap', async (req, res) => {
   const otherName = req.query.otherName;
   const mySeries = req.query.mySeries;
   const myName = req.query.myName;
+  //const username = req.query.username;
 
   try {
     res.type('JSON');
     let db = await getDBConnection();
-    let seriesQuery = 'INSERT DISTINCT series FROM smiskiinamesdata';
-    let seriesResults = await db.all(seriesQuery);
+    let swapped = myName + " " + mySeries;
+    let swappedFor = otherName + " " + otherSeries;
+    let getQueryForSwappedHistory = 'SELECT swappedhistory from userinfostorage';
+    getQueryForSwappedHistory = await db.run(getQueryForSwappedHistory);
+    let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage';
+    getQueryForRecivedSmiski = await db.run(getQueryForRecivedSmiski);
+    swapped +=  swapped + ", " + getQueryForSwappedHistory;
+    swappedFor += swappedFor + ", " + getQueryForRecivedSmiski;
+
+
+    // Assuming you have a table named 'swapData' with columns 'otherSeries', 'otherName', 'mySeries', 'myName'
+    //let insertQuery = `INSERT INTO userinfostorage (swappedhistory, [swapped for history])
+    //                   VALUES (?, ?) WHERE username='urmother8'`;
+    let insertQuery = `UPDATE userinfostorage
+    SET swappedhistory = ?, [swapped for history] = ?
+    WHERE username = 'urmother8'`;
+    let insertParams = [swapped, swappedFor];
+    await db.run(insertQuery, insertParams);
 
     db.close();
-    res.json(finalFormat);
+    res.json({ success: true });
   } catch (err) {
     res.status(500);
     console.log(err);
@@ -318,7 +426,7 @@ app.post('/search/:searchInput', async function(req, res) {
   try {
     console.log(1);
     let db = await getDBConnection();
-    let query = 'SELECT * FROM smiskiinamesdata WHERE Series = ?';
+    let query = 'SELECT * FROM smiskiinamesdata WHERE Series=?';
     let seriesResults = await db.all(query, searchInput);
     console.log(searchInput);
     console.log(seriesResults);
@@ -328,8 +436,10 @@ app.post('/search/:searchInput', async function(req, res) {
       res.json(seriesResults);
       //res.send(seriesResults);
     } else {
-      query = 'SELECT * FROM smiskiinamesdata WHERE Names = ?';
-      let listingsResults = await db.all(query, searchInput);
+      console.log(2);
+      console.log(searchInput);
+      query = 'SELECT * FROM smiskiinamesdata WHERE Names=?';
+      let listingsResults = await db.all(query, searchInput + "");
 
       if (listingsResults.length > 0) {
         query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing`=?';
