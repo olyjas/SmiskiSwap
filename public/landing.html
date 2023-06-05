@@ -130,13 +130,15 @@
             <div id="creating-listing-img">
               <!-- append image src in here of the smiski that is selected -->
             </div>
-            <label for="seller">Seller:</label>
-            <p id="creating-listing-seller">
+            <label for="seller">User:</label>
+            <p id="creating-listing-seller"></p>
               <!-- fill text content in here with the username from database -->
-            </p>
-            <input type="text" id="creating-listing-smiski" name="smiski-name" required><br>
-            <label for="series-listed">Series of listing:</label>
-            <select id="all-series" name="series-of-listing">
+            <label for="smiski-to-list">Smiski to list:</label>
+            <select id="smiski-listed" name="listed-smiski">
+              <!-- append options here of all smiskis from the database -->
+            </select>
+            <label for="series-listed">Series of listed Smiski:</label>
+            <select id="series-listed" name="series-of-listing">
               <option value="bed">Bed Series</option>
               <option value="dressing">Dressing Series</option>
               <option value="living">Living Series</option>
@@ -144,14 +146,16 @@
               <option value="work">Work Series</option>
               <option value="yoga">Yoga Series</option>
             </select>
-            <label for="individual-seeking">Smiski seeking:</label>
-            <select id="individual-smiski" name="selectedSmiski">
+            <label for="smiski-seeking">Smiski seeking:</label>
+            <select id="smiski-sought" name="sought-smiski">
               <!-- append options here of all smiskis from the database -->
             </select>
             <label for="additional-info">Additional Information:</label>
             <input type="text" id="creating-additional-info" name="added-info" required><br>
             <input type="submit" value="List">
           </form>
+          <p id="successful-listing-message"></p>
+          <p id="unsuccessful-listing-message"></p>
         </div>
       </section>
       <!--END OF CREATING LISTING PAGE-->
