@@ -793,14 +793,6 @@ async function fetchSmiskiNamesForSeek() {
   function populateIndividualView(data, search) {
 
     let toggleView;
-    // qs('toggle').addEventListener('change', (event) => {
-    //   toggleView = event.target.value;
-    //   if(toggleView === 'list') {
-    //     card.classList.remove("individualcard");
-    //     card.classList.remove()
-    //   }
-
-    // });
 
     if(!(data.length === 0) && data[0].Series) {
       seriesSearchView(search);
@@ -821,26 +813,11 @@ async function fetchSmiskiNamesForSeek() {
         let seriesName = data[i]['series of listing'];
         let username = data[i].username;
         let possibleTrades = data[i]['possible trade'];
+
         console.log(possibleTrades);
 
         let card = gen('article');
 
-        // qs('toggle').addEventListener('change', (event) => {
-        //   toggleView = event.target.value;
-        //   if(toggleView === 'list') {
-        //     card.classList.remove("individualcard");
-        //     card.classList.add('individualcard2');
-        //   } else {
-        //     card.classList.remove('individualcard2');
-        //     card.classList.add("individualcard");
-        //   }
-
-        // });
-
-        //TOGGLE 1
-        if(toggleView === 'grid') {
-
-        }
 
         let imgLogo = gen('img');
         nameOfSmiski = breakUpName(nameOfSmiski);
@@ -876,7 +853,7 @@ async function fetchSmiskiNamesForSeek() {
         card.appendChild(imgLogo);
 
         //let cardContent = generateListingDetails(username, nameOfSmiski, possibleTrades);
-        let cardContent = generateListingDetails(username, originalNames, possibleTrades);
+        let cardContent = generateListingDetails(username, originalNames, possibleTrades, seriesName);
 
         card.appendChild(cardContent);
 
@@ -894,7 +871,7 @@ async function fetchSmiskiNamesForSeek() {
     }
   }
 
-  function generateListingDetails(username, nameOfSmiski, possibleTrades) {
+  function generateListingDetails(username, nameOfSmiski, possibleTrades, seriesName) {
     let cardContent = gen('div');
     cardContent.classList.add('indi-card-content');
 
@@ -906,9 +883,16 @@ async function fetchSmiskiNamesForSeek() {
     usernameTag.innerHTML = "Name of Smiski: " + nameOfSmiski;
     let trades = gen('h2');
     trades.innerHTML = "Willing to swap for: " + possibleTrades;
+    let series = gen('h2');
+    series.innerHTML = "Series name: " + seriesName;
     cardContent.appendChild(nameHeader);
     cardContent.appendChild(usernameTag);
     cardContent.appendChild(trades);
+
+    console.log("SERIES");
+    console.log(series);
+    cardContent.appendChild(series);
+    console.log(cardContent);
     return cardContent;
   }
 
@@ -1007,6 +991,9 @@ async function fetchSmiskiNamesForSeek() {
     let parentContainer = qs("#swap-views");
     id('swap-button').classList.add('hidden');
     otherCard.classList.remove('specfic-listing-info-box');
+
+    console.log(otherCard);
+    console.log("OTHER");
 
     //create the card on the left side
     let leftSideCard = gen('article');

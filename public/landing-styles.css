@@ -568,6 +568,10 @@ input[type="submit"] {
   display: flex;
 }
 
+.indi-card-content {
+  text-align: center;
+}
+
 .left-side-smiski-listing-photo {
   width: 50%;
   /* object-fit: cover; */
