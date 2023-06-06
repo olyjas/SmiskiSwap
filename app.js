@@ -45,7 +45,7 @@ async function checkCredentials(username, password) {
     if (result) {
       return true;
     }
-      return false;
+    return false;
   } finally {
     await db.close();
   }
@@ -281,45 +281,59 @@ app.get('/filters', async (req, res) => {
 });
 
 app.post('/storeSwap', async (req, res) => {
+  const otherSeries = req.body.otherSeries;
   const otherName = req.body.otherName;
+  const mySeries = req.body.mySeries;
   const myName = req.body.myName;
   const username = req.body.username;
+
   try {
     res.type('JSON');
     let user = username.trim();
     let db = await getDBConnection();
+
     let getQueryForSwappedHistory = 'SELECT [swappedhistory] FROM userinfostorage WHERE username=?';
     let swappedHistory = await db.get(getQueryForSwappedHistory, user);
     swappedHistory = swappedHistory['swappedhistory'];
-    let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage' +
-    ' WHERE username=?';
+
+    let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage WHERE username=?';
     let swappedForHistory = await db.get(getQueryForRecivedSmiski, user);
     swappedForHistory = swappedForHistory['swapped for history'];
-    let swapped = swappedHistory + " " + myName + " ";
+
+    let swapped =  swappedHistory + " " + myName + " ";
     let swappedFor = swappedForHistory + " " + otherName + " ";
+
     let insertQuery = `UPDATE userinfostorage
     SET swappedhistory = ?, [swapped for history] = ?
     WHERE username = ?`;
     let insertParams = [swapped, swappedFor, user];
+    await db.run(insertQuery, insertParams);
+
     db.close();
-    res.json({success: true});
+    res.json({ success: true });
   } catch (err) {
     res.status(500);
+    console.log(err);
     res.type('text').send('An error occurred on the server. Try again later.');
   }
-});
+ });
 
 app.post('/search/:searchInput', async function(req, res) {
   const searchInput = req.body.searchInput;
 
   try {
+    console.log(1);
     let db = await getDBConnection();
     let query = 'SELECT * FROM smiskiinamesdata WHERE Series=?';
     let seriesResults = await db.all(query, searchInput);
+    console.log(searchInput);
+    console.log(seriesResults);
 
     if (seriesResults.length > 0) {
       res.json(seriesResults);
     } else {
+      console.log(2);
+      console.log(searchInput);
       query = 'SELECT * FROM smiskiinamesdata WHERE Names=?';
       let listingsResults = await db.all(query, searchInput + "");
 
@@ -327,6 +341,10 @@ app.post('/search/:searchInput', async function(req, res) {
         query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing`=?';
         let specficListingsResults = await db.all(query, searchInput);
         res.json(specficListingsResults);
+      } else if(searchInput === "all") {
+        let query = 'SELECT * FROM singlesmiskilistings';
+        let seriesResults = await db.all(query);
+        res.json(seriesResults);
       } else {
         res.json([]);
       }
@@ -335,6 +353,7 @@ app.post('/search/:searchInput', async function(req, res) {
     db.close();
   } catch (err) {
     res.status(500);
+    console.log(err);
     res.type('text').send('An error occurred on the server. Try again later.');
   }
 });

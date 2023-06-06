@@ -101,15 +101,14 @@
     const password = id('login-password').value;
 
     const response = await fetch('/login', {
-      method: 'POST',
-      headers: {
+    method: 'POST',
+    headers: {
         'Content-Type': 'application/json'
-      },
+    },
       body: JSON.stringify({username, password})
       });
 
     if (response.ok) {
-      const data = await response.json();
       let loginError = id('login-error');
       loginError.textContent = '';
 
@@ -338,7 +337,7 @@
           swapText.textContent = 'Swapped ' + swappedHistory[i] + ' for ' + swappedForHistory[i]
           transactionNum.textContent = 'Transaction Number: ' + transactionHistory[i];
           swapContainer.appendChild(swapText);
-          swapContainer.append(transactionNum);
+          swapContainer.appendChild(transactionNum);
           allSwapsContainer.appendChild(swapContainer);
         }
       }
