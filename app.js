@@ -380,35 +380,112 @@ app.get('/series', async function(req, res) {
   }
 });
 
+// Backend code (using Express.js)
+app.post('/validateTransaction', async function(req, res) {
+  let checkUsername = req.body.username;
+  console.log(checkUsername);
+  let cardNumber = req.body.cardNumber;
+  console.log(cardNumber);
+  let db = await getDBConnection();
+  let result = true;
+  let query = 'SELECT username from userinfostorage WHERE username = ?';
+  let usernameCheck = await db.all(query, checkUsername);
+  console.log(usernameCheck);
+  if(usernameCheck.length === 0 || cardNumber.length !== 16) {
+    result = false;
+  }
+  res.json(result);
+});
+
+//add transaction number
+
+app.post('/addTransactionNum', async function(req, res) {
+  let transNum = req.body.transactionNumber;
+  let username = req.body.username;
+  console.log(transNum);
+  let db = await getDBConnection();
+  let query = 'UPDATE userinfostorage SET [transaction number] = ? WHERE username = ?';
+  //let usernameCheck = await db.all(query, transNum + " ", username);
+  await db.all(query, transNum + " ", username);
+  res.json();
+});
+
+// alphabetical filters
+
+app.get('/filters', async (req, res) => {
+  const filterOption = req.query.filterOption; // Get the filter option from the query parameter
+
+  try {
+    let db = await getDBConnection();
+
+    // Retrieve the listings from the database
+    let query = 'SELECT * FROM singlesmiskilistings';
+
+    // // Apply sorting based on the filter option
+    // if (filterOption === 'date') {
+    //   query += ' ORDER BY date ASC';
+    // } else if (filterOption === 'alphabetical') {
+    //   query += ' ORDER BY username ASC';
+    // }
+
+    console.log(query);
+    console.log(filterOption);
+
+    let results = await db.all(query);
+
+    db.close();
+
+    res.json(results);
+  } catch (err) {
+    res.status(500).send('An error occurred while fetching the listings.');
+  }
+});
+
 // Endpoint for handling the swap request
-app.get('/storeSwap', async (req, res) => {
-  const otherSeries = req.query.otherSeries;
-  const otherName = req.query.otherName;
-  const mySeries = req.query.mySeries;
-  const myName = req.query.myName;
-  //const username = req.query.username;
+app.post('/storeSwap', async (req, res) => {
+  const otherSeries = req.body.otherSeries;
+  const otherName = req.body.otherName;
+  const mySeries = req.body.mySeries;
+  const myName = req.body.myName;
+  const username = req.body.username;
 
   try {
     res.type('JSON');
+    let user = username.trim();
+    console.log(user);
     let db = await getDBConnection();
+    //let getQueryForSwappedHistory = 'SELECT swappedhistory from userinfostorage';
+    console.log("START");
+    console.log(username);
+    let getQueryForSwappedHistory = 'SELECT swappedhistory FROM userinfostorage WHERE username=?';
+    console.log(1);
+    let swappedHistory = await db.get(getQueryForSwappedHistory, user + "");
+    swappedHistory = swappedHistory['swappedhistory'];
+    console.log(swappedHistory);
+    console.log(2);
+    let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage WHERE username=?';
+    let swappedForHistory = await db.get(getQueryForRecivedSmiski, user + "");
+    swappedForHistory = swappedForHistory['swapped for history'];
+    console.log(3);
+    console.log(swappedForHistory);
     let swapped = myName + " " + mySeries;
+    console.log(swapped);
     let swappedFor = otherName + " " + otherSeries;
-    let getQueryForSwappedHistory = 'SELECT swappedhistory from userinfostorage';
-    getQueryForSwappedHistory = await db.run(getQueryForSwappedHistory);
-    let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage';
-    getQueryForRecivedSmiski = await db.run(getQueryForRecivedSmiski);
-    swapped +=  swapped + ", " + getQueryForSwappedHistory;
-    swappedFor += swappedFor + ", " + getQueryForRecivedSmiski;
+    console.log(swappedFor);
 
+    swapped +=  swappedForHistory + ", " + swapped + ", ";
+    console.log("ACTUAL");
+    console.log(swapped);
+    swappedFor += swappedForHistory + ", " + swappedFor + ", ";
+    console.log("ACTUAL 2");
+    console.log(swappedFor);
 
-    // Assuming you have a table named 'swapData' with columns 'otherSeries', 'otherName', 'mySeries', 'myName'
-    //let insertQuery = `INSERT INTO userinfostorage (swappedhistory, [swapped for history])
-    //                   VALUES (?, ?) WHERE username='urmother8'`;
     let insertQuery = `UPDATE userinfostorage
     SET swappedhistory = ?, [swapped for history] = ?
-    WHERE username = 'urmother8'`;
-    let insertParams = [swapped, swappedFor];
-    await db.run(insertQuery, insertParams);
+    WHERE username = ?`;
+    let insertParams = [swapped, swappedFor, user];
+    let results = await db.run(insertQuery, insertParams);
+    console.log(results);
 
     db.close();
     res.json({ success: true });
@@ -418,7 +495,6 @@ app.get('/storeSwap', async (req, res) => {
     res.type('text').send('An error occurred on the server. Try again later.');
   }
 });
-
 
 //search results
 app.post('/search/:searchInput', async function(req, res) {
