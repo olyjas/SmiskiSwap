@@ -185,7 +185,7 @@ app.get('/smiskilistings', async function(req, res) {
   try {
     res.type('JSON');
     let db = await getDBConnection();
-    let query = 'SELECT  username, [name of listing], [series of listing] from singlesmiskilistings';
+    let query = 'SELECT username, [name of listing], [series of listing] from singlesmiskilistings';
     let results = await db.all(query);
     db.close();
     res.json(results);
@@ -232,7 +232,7 @@ app.get('/series', async function(req, res) {
       let namesResults = await db.all(namesQuery, seriesName);
       let names = namesResults.map(result => result.Names);
 
-      finalFormat.push({ series: seriesName, names: names });
+      finalFormat.push({series: seriesName, names: names});
     }
 
     db.close();
@@ -269,8 +269,6 @@ app.post('/addTransactionNum', async function(req, res) {
 });
 
 app.get('/filters', async (req, res) => {
-  const filterOption = req.query.filterOption;
-
   try {
     let db = await getDBConnection();
     let query = 'SELECT * FROM singlesmiskilistings';
@@ -303,9 +301,8 @@ app.post('/storeSwap', async (req, res) => {
     SET swappedhistory = ?, [swapped for history] = ?
     WHERE username = ?`;
     let insertParams = [swapped, swappedFor, user];
-    let results = await db.run(insertQuery, insertParams);
     db.close();
-    res.json({ success: true });
+    res.json({success: true});
   } catch (err) {
     res.status(500);
     res.type('text').send('An error occurred on the server. Try again later.');
@@ -367,7 +364,6 @@ app.get('/swap-history/:username', async (req, res) => {
       }
     }
     res.json({swappedHistory, swappedForHistory, transactionHistory});
-
     db.close();
   } catch (err) {
     console.error(err);

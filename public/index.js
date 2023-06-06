@@ -9,9 +9,7 @@
 
 'use strict';
 (function() {
-
   let signedIn = false;
-
   window.addEventListener('load', init);
 
   /**
@@ -25,13 +23,11 @@
 
     let loginButton = id('login-btn');
     let signupButton = id('signup-btn');
-    let logo = id ('logo-img');
+    let logo = id('logo-img');
 
     loginButton.addEventListener('click', loginView);
     signupButton.addEventListener('click', signupView);
     logo.addEventListener('click', homeView);
-
-    /*---log in and sign up functionalities end----*/
 
     let search = id('search-term');
     fetchReccomended('/smiskilistings');
@@ -50,7 +46,7 @@
 
     qs('.filterSelect').addEventListener('change', (event) => {
       const selectedOption = event.target.value;
-      if(selectedOption === 'alphabetical') {
+      if (selectedOption === 'alphabetical') {
         handleFilterSelection(selectedOption);
       } else {
         handleFilterSelection(selectedOption);
@@ -94,7 +90,7 @@
     loginForm.addEventListener('submit', loginUser);
 
     let signupLink = id('signup-from-login');
-    signupLink.addEventListener('click',  signupView);
+    signupLink.addEventListener('click', signupView);
     let backButton = id('home-from-login');
     backButton.addEventListener('click', homeView);
   }
@@ -109,23 +105,23 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({username, password})
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        let loginError = id('login-error');
-        loginError.textContent = '';
+    if (response.ok) {
+      const data = await response.json();
+      let loginError = id('login-error');
+      loginError.textContent = '';
 
-        localStorage.setItem('username', username);
+      localStorage.setItem('username', username);
 
-        signedIn = true;
-        updateHeaderView();
-        homeView();
-      } else {
-        let loginError = id('login-error');
-        loginError.textContent = 'Incorrect username or password';
-      }
+      signedIn = true;
+      updateHeaderView();
+      homeView();
+    } else {
+      let loginError = id('login-error');
+      loginError.textContent = 'Incorrect username or password';
+    }
   }
 
   function signupView() {
@@ -158,16 +154,14 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password, email })
+      body: JSON.stringify({username, password, email})
     });
 
     if (response.ok) {
-      const data = await response.json();
       let signupError = id('signup-error');
       signupError.textContent = '';
       location.reload();
     } else {
-      const errorData = await response.json();
       let signupError = id('signup-error');
       signupError.textContent = 'Username unavailable';
     }
@@ -189,7 +183,7 @@
   }
 
   function homeView() {
-    hideCreateListingPage()
+    hideCreateListingPage();
     hideAccountDetails();
     hideSignOutUser();
     hideViewTradeHistory();
@@ -211,8 +205,8 @@
     loginPage.classList.add('hidden');
     let recommended = id('recommended-boxes');
     recommended.classList.remove('hidden');
-    let accountView = id('account-view');
-    accountView.classList.add('hidden');
+    let accountViewHome = id('account-view');
+    accountViewHome.classList.add('hidden');
 
     id('reccomended1').innerHTML = '';
     id('reccomended2').innerHTML = '';
