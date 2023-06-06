@@ -22,7 +22,7 @@
   <script src="index.js"></script>
   </head>
   <body>
-
+<!-- ALL INDIVIDUAL SMISKI IMAGES WERE TAKEN FROM smiski.com -->
      <!-- header view -->
     <header>
       <img src="img/logo.png" id="logo-img" alt="Smiski Swap Logo">
@@ -41,7 +41,9 @@
       <!-- signed-in version of the header -->
       <div id="signed-in">
         <img src="img/notification-icon.png" class='signed-in-icons' alt="Notification Icon">
+        <!-- image provided by canva.com icon database -->
         <img src="img/account-icon.png" class='signed-in-icons' id='account-button' alt="Account Icon">
+        <!-- image provided by canva.com icon database -->
       </div>
       <!-- END of signed-in version of the header -->
     </header>
@@ -52,7 +54,7 @@
       <!-- Sidebar details -->
       <div class="sidebar">
         <ul class="sidebar-menu">
-          <li><a href="#" id="manage-account">Manage Account Details</a></li>
+          <li><a href="#" id="account-details">Account Details</a></li>
           <li><a href="#" id="create-listing">Create a Listing</a></li>
           <li><a href="#" id="view-trade-history">View Trade History</a></li>
           <li><a href="#" id="sign-out">Sign Out</a></li>
@@ -69,6 +71,7 @@
             <h2><pre>S m i s k i   S w a p</pre></h2>
           </div>
           <img src="img/banner.png" alt="Smiski Swap Banner">
+          <!-- image taken from smiski.com -->
           <div id="about-button-container">
             <button id="about-button">About</button>
           </div>
@@ -130,10 +133,11 @@
             <div id="creating-listing-img">
               <!-- append image src in here of the smiski that is selected -->
             </div>
-            <label for="seller">User:</label>
+            <!--<label for="seller" id="user-creating-listing">User:</label>-->
+            <h3 id="user-creating-listing">User:</h3>
             <p id="creating-listing-seller"></p>
               <!-- fill text content in here with the username from database -->
-            <label for="smiski-to-list">Smiski to list:</label>
+            <label for="smiski-to-list" id="smiski-to-list-label">Smiski to list:</label>
             <select id="smiski-listed" name="listed-smiski">
               <!-- append options here of all smiskis from the database -->
             </select>
@@ -160,6 +164,38 @@
       </section>
       <!--END OF CREATING LISTING PAGE-->
 
+      <!--START OF SIGN OUT PAGE-->
+      <section id="sign-out-attempt" class="hidden">
+        <div>
+          <h3>Confirm sign out</h3>
+          <div id="signout-buttons">
+            <button id="confirm-sign-out">Confirm</button>
+            <button id="cancel-sign-out">Cancel</button>
+          </div>
+        </div>
+      </section>
+      <!--END OF SIGN OUT PAGE-->
+
+
+      <!--START OF VIEW HISTORY PAGE-->
+      <section id ="view-history-page" class="hidden">
+        <h3>Previous Transactions</h3>
+        <div id="view-history-div">
+
+        </div>
+      </section>
+      <!--END OF VIEW HISTORY PAGE-->
+
+      <!--START OF ACCOUNT DETAILS PAGE-->
+      <section id ="account-details-page" class="hidden">
+        <h2>Account Details</h2>
+        <h3>Username:</h3>
+        <p id="account-details-username"></p>
+        <h3>Email:</h3>
+        <p id="account-details-email"></p>
+      </section>
+      <!--END OF ACCOUNT DETAILS PAGE-->
+
       <!-- search results page -->
       <!-- <button id='filter-btn' disabled>filter</button> -->
       <section id="search-results">
@@ -169,10 +205,6 @@
         </select> -->
       </section>
       <!-- end of search results page -->
-
-      <!-- account details page -->
-      <section id="account-details">
-      </section>
 
       <!-- end of account details page -->
 

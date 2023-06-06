@@ -798,3 +798,150 @@ input[type="submit"] {
 .sidebar-menu li a:hover {
   background-color: #ddd;
 }
+
+#account-details-page,
+#creating-listing,
+#view-history-page,
+#sign-out-attempt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#account-details-page,
+#view-history-page,
+#sign-out-attempt {
+padding: 40px 110px 100px 110px;
+}
+
+#creating-listing {
+  padding: 40px 110px 0px 110px;
+}
+
+#account-details-page,
+#creating-listing,
+#sign-out-attempt,
+#view-history-page {
+  margin-right: 250px;
+}
+
+#account-details-page h2,
+#view-history-page h3,
+#sign-out-attempt h3 {
+  font-size: 30px;
+  margin-top: 10px;
+}
+
+#account-details-page h3 {
+  font-size: 25px;
+  margin-bottom: 0px;
+}
+
+#account-details-page p {
+  font-size: 20px;
+}
+
+#listing-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+#creating-listing label {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#creating-listing input[type="text"] {
+  width: 97%;
+  height: 34px;
+  margin-bottom: 15px;
+}
+
+#creating-listing input[type="submit"] {
+  width: 50%;
+  padding: 10px;
+  background-color: #a0cc74;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 95px;
+}
+
+#successful-listing-message,
+#unsuccessful-listing-message {
+  margin-top: 10px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+#user-creating-listing,
+#creating-listing-seller {
+  display: inline;
+  margin-bottom: 15px;
+}
+
+#smiski-to-list-label {
+  display: block;
+  margin-top: 10px;
+}
+
+#user-creating-listing {
+  font-size: 24px;
+}
+
+#creating-listing-seller {
+  font-size: 21px;
+  margin-bottom: 20px
+}
+
+#view-history-div div {
+  max-width: 700px;
+  padding: 5px 15px;
+  margin-bottom: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#view-history-div p {
+  margin-bottom: 10px;
+}
+
+#signout-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#signout-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #a0cc74;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#signout-buttons button:hover,
+#creating-listing input[type="submit"]:hover {
+  background-color: #234F1E;
+}
