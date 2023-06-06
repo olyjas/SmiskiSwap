@@ -353,11 +353,11 @@
     let allSwapsContainer = id('view-history-div');
     if (swappedHistory[0] != "") {
       for (let i = 0; i < swappedHistory.length; i++) {
-        let swapContainer = gen('div');
-        let swapText = gen('p');
-        swapText.textContent = "Swapped " + swappedHistory[i] + " for " + swappedForHistory[i]
-        swapContainer.appendChild(swapText);
-        allSwapsContainer.appendChild(swapContainer);
+          let swapContainer = gen('div');
+          let swapText = gen('p');
+          swapText.textContent = "Swapped " + swappedHistory[i] + " for " + swappedForHistory[i]
+          swapContainer.appendChild(swapText);
+          allSwapsContainer.appendChild(swapContainer);
       }
     } else {
       let noSwapsContainer = gen('div');

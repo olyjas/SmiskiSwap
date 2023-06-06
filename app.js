@@ -457,27 +457,37 @@ app.post('/storeSwap', async (req, res) => {
     //let getQueryForSwappedHistory = 'SELECT swappedhistory from userinfostorage';
     console.log("START");
     console.log(username);
-    let getQueryForSwappedHistory = 'SELECT swappedhistory FROM userinfostorage WHERE username=?';
+
+    let getQueryForSwappedHistory = 'SELECT [swappedhistory] FROM userinfostorage WHERE username=?';
     console.log(1);
-    let swappedHistory = await db.get(getQueryForSwappedHistory, user + "");
+    let swappedHistory = await db.get(getQueryForSwappedHistory, user);
+    console.log("SWAPPED HISTORY");
+    console.log(swappedHistory);
     swappedHistory = swappedHistory['swappedhistory'];
     console.log(swappedHistory);
+
+
+
     console.log(2);
     let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage WHERE username=?';
-    let swappedForHistory = await db.get(getQueryForRecivedSmiski, user + "");
-    swappedForHistory = swappedForHistory['swapped for history'];
-    console.log(3);
+    let swappedForHistory = await db.get(getQueryForRecivedSmiski, user);
+    console.log("SWAPPED FOR HISTORY");
     console.log(swappedForHistory);
-    let swapped = myName + " " + mySeries;
-    console.log(swapped);
-    let swappedFor = otherName + " " + otherSeries;
-    console.log(swappedFor);
+    swappedForHistory = swappedForHistory['swapped for history'];
+    console.log(swappedForHistory);
+    console.log(3);
+    //let swapped = myName + " ";
 
-    swapped +=  swappedForHistory + ", " + swapped + ", ";
+
+    // let swapped;
+    //let swappedFor = otherName + " ";
+    // let swappedFor;
+
+    let swapped =  swappedHistory + myName + " ";
     console.log("ACTUAL");
-    console.log(swapped);
-    swappedFor += swappedForHistory + ", " + swappedFor + ", ";
+    let swappedFor = swappedForHistory + otherName + " ";
     console.log("ACTUAL 2");
+    console.log(swapped);
     console.log(swappedFor);
 
     let insertQuery = `UPDATE userinfostorage
