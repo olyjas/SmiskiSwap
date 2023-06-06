@@ -199,6 +199,10 @@
       <!-- search results page -->
       <!-- <button id='filter-btn' disabled>filter</button> -->
       <section id="search-results">
+        <!-- <select class="filterSelect" class="hidden">
+          <option value="date">Sort by Date</option>
+          <option value="alphabetical">Sort Alphabetically</option>
+        </select> -->
       </section>
       <!-- end of search results page -->
 
@@ -207,6 +211,26 @@
       <!-- individual smiski results -->
       <section id="search-individual-results">
 
+        <select class="filterSelect">
+          <option value="select">select</option>
+          <option value="alphabetical">Sort Alphabetically</option>
+        </select>
+        <!-- TOGGLE -->
+        <select class="toggle">
+          <option value="grid">grid</option>
+          <option value="list">list</option>
+        </select>
+        <!-- TOGGLE -->
+        <section id="cardformatting">
+        </section>
+
+
+        <!-- <select class="toggle">
+          <option value="grid">grid</option>
+          <option value="list">list</option>
+        </select>
+        <section id="cardformatting">
+        </section> -->
       </section>
       <!-- END individual smiski results -->
 
@@ -228,6 +252,9 @@
         <img src = "/img/logo.png" alt="logo" class="circlecardlogo">
         <form id="transaction-form">
           <label for="name">Name:</label>
+          <input type="text" id="name" required>
+
+          <label for="username">Username:</label>
           <input type="text" id="name" required>
 
           <label for="address">Address:</label>
