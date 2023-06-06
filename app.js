@@ -116,52 +116,6 @@ async function createUser(username, password, email) {
 
 //get list of listings with multiple names
 
-/*app.post('/listing', async (req, res) => {
-  const data = req.body.data;
-
-  try {
-    // Perform the necessary data processing
-    checkData(data)
-      .then((listings) => {
-        // Send the listings as a response back to the frontend
-        res.json(listings);
-      })
-      .catch((error) => {
-        console.error('Error fetching listings:', error);
-        res.status(500).send('An error occurred while fetching listings');
-      });
-  } catch (error) {
-    console.error('Error processing data:', error);
-    res.status(500).send('An error occurred while processing data');
-  }
-});
-
-async function checkData(data) {
-  let names = data['swap history'];
-  if (names == null) {
-    names = data['possible trades'];
-  }
-
-  try {
-    const db = await getDBConnection();
-
-    // Generate the placeholders for the names in the query
-    const placeholders = names.map(() => '?').join(',');
-
-    // Create the query dynamically with the generated placeholders
-    const query = `SELECT * FROM singlesmiskilistings WHERE \`name of listing\` IN (${placeholders})`;
-
-    // Fetch the listings using the query and names array
-    const results = await db.all(query, names);
-
-    db.close();
-
-    return results;
-  } catch (error) {
-    throw error;
-  }
-} */
-
 app.post('/listing/:username', async (req, res) => {
   const username = req.body.username;
 
@@ -176,13 +130,6 @@ app.post('/listing/:username', async (req, res) => {
 
     db.close();
 
-    // Extract the columns 'possible trades' and 'swap history' from the fetched data
-    // const listings = results.map((result) => ({
-    //   'possible trades': result['possible trades'],
-    //   'swap history': result['swap history']
-    // }));
-
-    // Send the extracted listings as a response back to the frontend
     res.json(results);
   } catch (error) {
     console.error('Error fetching listings:', error);
@@ -288,11 +235,6 @@ app.post('/smiskilisting/:smiskiName', async function(req, res) {
     //let search = req.query.search;
     res.type('JSON');
     let db = await getDBConnection();
-    //use the distinct keyword instead
-    //let query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing` =?';
-    //---
-    //let query = 'SELECT * FROM singlesmiskilistings WHERE `name of listing`=?';
-    //let results = await db.all(query, smiski);
 
     let query = 'SELECT * FROM singlesmiskilistings WHERE REPLACE(`name of listing`, " ", "") LIKE ?';
     let results = await db.all(query, `%${smiski}%`);
@@ -403,10 +345,12 @@ app.post('/addTransactionNum', async function(req, res) {
   let transNum = req.body.transactionNumber;
   let username = req.body.username;
   console.log(transNum);
+  transNum += " " + transNum;
   let db = await getDBConnection();
-  let query = 'UPDATE userinfostorage SET [transaction number] = ? WHERE username = ?';
+  //let query = 'UPDATE userinfostorage SET [transaction number] = ? WHERE username = ?';
   //let usernameCheck = await db.all(query, transNum + " ", username);
-  await db.all(query, transNum + " ", username);
+  let query = 'UPDATE userinfostorage SET [transaction number] = [transaction number] || ? WHERE username = ?';
+  await db.all(query, transNum, username);
   res.json();
 });
 
@@ -420,14 +364,6 @@ app.get('/filters', async (req, res) => {
 
     // Retrieve the listings from the database
     let query = 'SELECT * FROM singlesmiskilistings';
-
-    // // Apply sorting based on the filter option
-    // if (filterOption === 'date') {
-    //   query += ' ORDER BY date ASC';
-    // } else if (filterOption === 'alphabetical') {
-    //   query += ' ORDER BY username ASC';
-    // }
-
     console.log(query);
     console.log(filterOption);
 
@@ -476,13 +412,6 @@ app.post('/storeSwap', async (req, res) => {
     swappedForHistory = swappedForHistory['swapped for history'];
     console.log(swappedForHistory);
     console.log(3);
-    //let swapped = myName + " ";
-
-
-    // let swapped;
-    //let swappedFor = otherName + " ";
-    // let swappedFor;
-
     let swapped =  swappedHistory + myName + " ";
     console.log("ACTUAL");
     let swappedFor = swappedForHistory + otherName + " ";
@@ -582,8 +511,6 @@ app.get('/swap-history/:username', async (req, res) => {
         swappedForHistory.push(swappedForSmiskis[j]);
       }
     }
-
-    // Send the swap history as the response
     res.json({swappedHistory, swappedForHistory});
 
     // Close the database connection
@@ -593,7 +520,6 @@ app.get('/swap-history/:username', async (req, res) => {
     res.status(500).send('An error occurred while fetching swap history');
   }
 });
-
 
 // fetching account details, basically just the email
 app.get('/account-details/:username', async (req, res) => {
@@ -619,7 +545,6 @@ app.get('/account-details/:username', async (req, res) => {
     res.status(500).send('An error occurred while fetching account information');
   }
 });
-
 
 // Start the server
 app.listen(3000, () => {
