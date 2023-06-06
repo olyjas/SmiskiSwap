@@ -24,14 +24,14 @@ async function getDBConnection() {
 }
 
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const {username, password} = req.body;
 
   const isCredentialsValid = await checkCredentials(username, password);
 
   if (isCredentialsValid) {
-    res.status(200).json({ message: 'Login successful' });
+    res.status(200).json({message: 'Login successful'});
   } else {
-    res.status(401).json({ message: 'Invalid credentials' });
+    res.status(401).json({message: 'Invalid credentials'});
   }
 });
 
@@ -44,22 +44,21 @@ async function checkCredentials(username, password) {
 
     if (result) {
       return true;
-    } else {
-      return false;
     }
+      return false;
   } finally {
     await db.close();
   }
 }
 
 app.post('/signup', async (req, res) => {
-  const { username, password, email } = req.body;
+  const {username, password, email} = req.body;
   const isUserCreated = await createUser(username, password, email);
 
   if (isUserCreated) {
-    res.status(201).json({ message: 'User created successfully' });
+    res.status(201).json({message: 'User created successfully'});
   } else {
-    res.status(409).json({ message: 'Username already exists' });
+    res.status(409).json({message: 'Username already exists'});
   }
 });
 
@@ -73,8 +72,8 @@ async function createUser(username, password, email) {
     if (existingUser.count > 0) {
       return false;
     }
-    const insertQuery = `INSERT INTO userinfostorage (username, password, name, email, swappedhistory, [swapped for history])
-                        VALUES (?, ?, '', ?, '', '')`;
+    const insertQuery = `INSERT INTO userinfostorage (username, password, name, email,' +
+    ' swappedhistory, [swapped for history]) VALUES (?, ?, '', ?, '', '')`;
     await db.run(insertQuery, [username, password, email]);
     return true;
   } finally {
@@ -118,7 +117,7 @@ app.post('/listing', async (req, res) => {
 
   try {
     const insertQuery = `INSERT INTO singlesmiskilistings (name, username, [name of listing], ` +
-    `[series of listing], [possible trade], [trade info]) VALUES ('', ?, ?, ?, ?, ?)`
+    `[series of listing], [possible trade], [trade info]) VALUES ('', ?, ?, ?, ?, ?)`;
     await db.run(insertQuery, [seller, listedSmiski, seriesListed, seekingSmiski, additionalInfo]);
     await db.close();
 
@@ -127,7 +126,6 @@ app.post('/listing', async (req, res) => {
     res.status(500).send('An error occurred while creating the listing');
   }
 });
-
 
 app.get('/allsmiskii', async function(req, res) {
   try {
@@ -154,7 +152,7 @@ app.get('/allsmiskiis', async function(req, res) {
       query = 'SELECT names FROM smiskiinamesdata WHERE series = ?';
       results = await db.all(query, search);
     } else {
-      query = 'SELECT names FROM smiskiinamesdata';;
+      query = 'SELECT names FROM smiskiinamesdata';
       results = await db.all(query);
     }
     db.close();
@@ -171,7 +169,8 @@ app.post('/smiskilisting/:smiskiName', async function(req, res) {
     res.type('JSON');
     let db = await getDBConnection();
 
-    let query = 'SELECT * FROM singlesmiskilistings WHERE REPLACE(`name of listing`, " ", "") LIKE ?';
+    let query = 'SELECT * FROM singlesmiskilistings WHERE REPLACE(`name of listing`, " ", "")' +
+    ' LIKE ?';
     let results = await db.all(query, `%${smiski}%`);
 
     db.close();
@@ -204,8 +203,8 @@ app.get('/smiskiiseries', async function(req, res) {
     let results = await db.all(query);
     let finalResults = [];
     let index = 0;
-    for(let i = 0; i < results.length; i++) {
-      if(!(finalResults.includes(results[i].Series))) {
+    for (let i = 0; i < results.length; i++) {
+      if (!(finalResults.includes(results[i].Series))) {
         finalResults[index] = results[i].Series;
         index++;
       }
@@ -251,7 +250,7 @@ app.post('/validateTransaction', async function(req, res) {
   let result = true;
   let query = 'SELECT username from userinfostorage WHERE username = ?';
   let usernameCheck = await db.all(query, checkUsername);
-  if(usernameCheck.length === 0 || cardNumber.length !== 16) {
+  if (usernameCheck.length === 0 || cardNumber.length !== 16) {
     result = false;
   }
   res.json(result);
@@ -263,7 +262,8 @@ app.post('/addTransactionNum', async function(req, res) {
   transNum += " " + transNum;
   transNum += " " + transNum;
   let db = await getDBConnection();
-  let query = 'UPDATE userinfostorage SET [transaction number] = [transaction number] || ? WHERE username = ?';
+  let query = 'UPDATE userinfostorage SET [transaction number] = [transaction number] || ?' +
+  ' WHERE username = ?';
   await db.all(query, transNum, username);
   res.json();
 });
@@ -293,7 +293,8 @@ app.post('/storeSwap', async (req, res) => {
     let getQueryForSwappedHistory = 'SELECT [swappedhistory] FROM userinfostorage WHERE username=?';
     let swappedHistory = await db.get(getQueryForSwappedHistory, user);
     swappedHistory = swappedHistory['swappedhistory'];
-    let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage WHERE username=?';
+    let getQueryForRecivedSmiski = 'SELECT [swapped for history] from userinfostorage' +
+    ' WHERE username=?';
     let swappedForHistory = await db.get(getQueryForRecivedSmiski, user);
     swappedForHistory = swappedForHistory['swapped for history'];
     let swapped = swappedHistory + " " + myName + " ";
@@ -337,7 +338,6 @@ app.post('/search/:searchInput', async function(req, res) {
     db.close();
   } catch (err) {
     res.status(500);
-    console.log(err);
     res.type('text').send('An error occurred on the server. Try again later.');
   }
 });
@@ -345,31 +345,23 @@ app.post('/search/:searchInput', async function(req, res) {
 app.get('/swap-history/:username', async (req, res) => {
   try {
     const username = req.params.username;
-
     let db = await getDBConnection();
-
     const query = 'SELECT swappedhistory, [swapped for history], [transaction number]' +
     ' FROM userinfostorage WHERE username = ?';
-
     let userRow = await db.all(query, [username]);
-
     const swappedHistory = [];
     const swappedForHistory = [];
     const transactionHistory = [];
-
     for (let i = 0; i < userRow.length; i++) {
       const swappedSmiskis = userRow[i].swappedhistory.split(' ');
       const swappedForSmiskis = userRow[i]['swapped for history'].split(' ');
       const allTransactionNumbers = userRow[i]['transaction number'].split(' ');
-
       for (let j = 0; j < swappedSmiskis.length; j++) {
         swappedHistory.push(swappedSmiskis[j]);
       }
-
       for (let j = 0; j < swappedForSmiskis.length; j++) {
         swappedForHistory.push(swappedForSmiskis[j]);
       }
-
       for (let j = 0; j < allTransactionNumbers.length; j++) {
         transactionHistory.push(allTransactionNumbers[j]);
       }
