@@ -399,14 +399,27 @@ app.post('/validateTransaction', async function(req, res) {
 
 //add transaction number
 
+//app.post('/addTransactionNum', async function(req, res) {
+//  let transNum = req.body.transactionNumber;
+//  let username = req.body.username;
+//  console.log(transNum);
+//  let db = await getDBConnection();
+//  let query = 'UPDATE userinfostorage SET [transaction number] = ? WHERE username = ?';
+//  //let usernameCheck = await db.all(query, transNum + " ", username);
+//  await db.all(query, transNum + " ", username);
+//  res.json();
+//});
+
 app.post('/addTransactionNum', async function(req, res) {
   let transNum = req.body.transactionNumber;
   let username = req.body.username;
   console.log(transNum);
+  transNum += " " + transNum;
   let db = await getDBConnection();
-  let query = 'UPDATE userinfostorage SET [transaction number] = ? WHERE username = ?';
+  //let query = 'UPDATE userinfostorage SET [transaction number] = ? WHERE username = ?';
   //let usernameCheck = await db.all(query, transNum + " ", username);
-  await db.all(query, transNum + " ", username);
+  let query = 'UPDATE userinfostorage SET [transaction number] = [transaction number] || ? WHERE username = ?';
+  await db.all(query, transNum, username);
   res.json();
 });
 
@@ -483,9 +496,9 @@ app.post('/storeSwap', async (req, res) => {
     //let swappedFor = otherName + " ";
     // let swappedFor;
 
-    let swapped =  swappedHistory + myName + " ";
+    let swapped =  swappedHistory + " " + myName + " ";
     console.log("ACTUAL");
-    let swappedFor = swappedForHistory + otherName + " ";
+    let swappedFor = swappedForHistory + " " + otherName + " ";
     console.log("ACTUAL 2");
     console.log(swapped);
     console.log(swappedFor);

@@ -5,47 +5,93 @@
   TA's: TARA WUEGER & ALLISON HO
 */
 
+
+body {
+  background-color: #d7dad7;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#banner {
+  background-color: #dcf3c6f1;
+  height: 285px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #234F1E;
+}
+
+#banner img {
+  height: 290px;
+  padding-bottom: 43px;
+}
+
+
+#banner-text {
+  position: absolute;
+  top: 17.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#banner-text h2 {
+  font-size: 30px;
+  color: #234F1E;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+}
+
 body > header {
   display: flex;
   align-items: center;
-  background-color: rgb(232, 185, 194);
-  font-family: 'Comfortaa', cursive;
+  background-color: #a0cc74;
   justify-content: space-between;
-  color: white;
   font-weight: 500;
+  height: 80px;
 }
 
-body > header > div > h1 {
-  font-size: 75px;
+#logo-img {
+  width: 3.5%;
+  margin-left: 60px;
+  margin-right: 70px;
 }
 
-#headertext {
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-body > header > img {
-  width: 5%;
-  margin: 40px;
-}
-
-body > header > img:hover {
+#logo-img:hover,
+.signed-in-icons:hover {
+  cursor: pointer;
   filter: grayscale(60%);
 }
 
-#buttons {
+#not-signed-in,
+#signed-in {
   display: flex;
-  flex-direction: column;
-  margin: 40px;
+  margin: 30px;
 }
 
-#buttons > button {
-  font-size: 18px;
+.signed-in-icons {
+  width:75px;
+  height: 75px;
+}
+
+#signed-in {
+  gap: 0px;
+}
+
+#account-button {
+  margin-right: 40px;
+}
+
+#not-signed-in > button {
+  font-size: 15px;
   padding: 14px 16px;
-  background-color: rgb(232, 185, 194);
-  border-radius: 12px;
+  background-color: #a0cc74;
+  border-radius: 10px;
   border-color: white;
   border-style: solid;
   color: white;
@@ -53,14 +99,14 @@ body > header > img:hover {
   font-weight: 400;
 }
 
-#buttons > button:hover {
+#not-signed-in > button:hover {
   background-color: white;
-  border-color: rgb(232, 185, 194);
-  color: rgb(232, 185, 194);
+  border-color: #a0cc74;
+  color: #a0cc74;
 }
 
-#buttons > #signup {
-  margin-bottom: 10px;
+#login-btn {
+  margin-left: 20px;
 }
 
 body {
@@ -70,83 +116,60 @@ body {
 
 hr {
   margin: 0;
-  border-color: rgb(232, 185, 194);
+  border-color: #234F1E;
 }
 
-#headertext > h1 {
-  margin-top: 15px;
-  margin-bottom: 10px;
-}
-
-#headertext > h2 {
-  margin-top: 10px;
-  margin-bottom: 15px;
-}
-
-#search {
+#search-header {
   display: flex;
-  align-items: center;
-  margin: 20px 180px 50px 160px;
-  font-family: 'Manrope', sans-serif;
+  justify-content: center;
+  gap: 6px;
 }
 
-#list {
-  display: flex;
-  align-items: center;
-  margin: 20px 160px 50px 190px;
-  font-family: 'Manrope', sans-serif;
-}
-
-#search > section,
-#list > section {
-  display: flex;
-  flex-direction: column;
-}
-
-#search > img {
-  width: 200px;
-  height: auto;
-  margin-right: 140px;
-}
-
-#list > img {
-  width: 170px;
-  height: auto;
-  margin-left: 140px;
-}
-
-#search h3,
-#list h3 {
-  font-size: 30px;
-  margin: 0 0 10px 0;
-}
-
-#search p,
-#list p {
-  font-size: 22px;
-}
-
-#searchbutton,
-#listbutton {
+#search-term {
+  width: 810px; /* Set a maximum width for the input */
+  padding: 10px;
   font-size: 18px;
-  padding: 14px 16px;
-  background-color: white;
-  border-radius: 12px;
-  border-color: rgb(232, 185, 194);
-  border-style: solid;
-  color: rgb(232, 185, 194);
-  font-family: 'Manrope', sans-serif;
-  font-weight: 300;
-  width: 40%;
+  border-radius: 8px;
+  border: 2px solid #234F1E;
 }
 
-#searchbutton:hover,
-#listbutton:hover {
-  background-color: rgb(232, 185, 194);
-  border-radius: 12px;
-  border-color: rgb(232, 185, 194);
+#search-btn {
+  font-size: 15px;
+  padding: 10px 10px;
+  background-color: white;
+  border-radius: 5px;
+  border-color: #234F1E;
   border-style: solid;
-  color: white;
+  color: #234F1E;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+}
+
+#search-btn:hover {
+  background-color: rgb(225, 218, 218);
+  border-color: #234F1E;
+  color: #234F1E;
+}
+
+#about-button-container {
+  position: absolute;
+  top: 49.5%;
+}
+
+#about-button {
+  padding: 10px 20px;
+  background-color: #afc59a4e;
+  border-radius: 10px;
+  border-color: #234F1E;
+  border-style: solid;
+  border: 1px solid #234F1E;
+  color: #234F1E;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+}
+
+#about-button:hover {
+  background-color: #afc59ac4;
 }
 
 /* ----account details css---- */
@@ -227,6 +250,15 @@ hr {
   display: flex;
 }
 
+/*START series search result css*/
+
+#search-results {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+  margin-top: 5%;
+}
+
 .series-card {
   display: flex;
   flex-direction: column;
@@ -234,7 +266,7 @@ hr {
   justify-content: center;
   background-color: #f5f5f5;
   border-radius: 8px;
-  padding: 20px;
+  padding: 60px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -251,6 +283,660 @@ hr {
   text-align: center;
 }
 
+/*end series search result css*/
+
+/* LOGIN/SIGNUP STYLING */
+
+#signup-page label {
+  width: 160%;
+}
+
+#login-page label {
+  width: 150%;
+}
+
+#login-page p,
+#signup-error {
+  margin-top: 5px;
+  color: red;
+}
+
+#signup-page input[type="text"],
+#signup-page input[type="email"],
+#signup-page input[type="password"] {
+  width: 160%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; /* Added property */
+}
+
+#login-page input[type="text"],
+#login-page input[type="email"],
+#login-page input[type="password"] {
+  width: 150%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #a0cc74;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#login-page input[type="submit"] {
+  width: 80%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#login-page button {
+  margin-bottom: 25px;
+}
+
+#login-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+#signup-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+#login-page,
+#signup-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 50px 90px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+#login-page input,
+#signup-page input {
+  margin: 0;
+}
+
+#login-from-signup,
+#signup-from-login {
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #a0cc74;
+  font-size: 15px;
+}
+
+.home {
+  width: 30%;
+  padding: 5px 2px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: #a0cc74;
+  border-color: #a0cc74;
+  border-radius: 5px;
+  border-style: solid;
+  cursor: pointer;
+}
+
+/*end login and signup css*/
+
+/*START reccomended boxes css */
+
+#recommended-boxes {
+
+  display: flex;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 60px;
+  margin-top: 5%;
+}
+
+.recommended {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recommended article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recommended article img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.recommended article p {
+  margin-top: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+/*end reccomeded boxes css*/
+
+/*start individual result boxes css*/
+
+/*
+
+#search-individual-results {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  margin-top: 5%;
+}
+
+.individualcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.circlecardlogo {
+  width: 40%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.indi-card-header {
+  margin-top: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.indi-card-username {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+*/
+
+#search-individual-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.filterSelect {
+  margin-bottom: 20px;
+}
+
+#cardformatting {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+}
+
+.individualcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* THIS IS FOR THE LIST VIEW */
+.individualcard2 {
+  display: flex;
+  flex-direction: row; /* Change the flex direction to display the cards horizontally */
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px; /* Add margin to create spacing between the cards */
+}
+/* END OF LIST VIEW */
+
+
+.circlecardlogo {
+  width: 40%;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* THIS IS FOR THE LIST VIEW */
+.circlecardlogo2 {
+  width: 80px; /* Adjust the width to fit the desired size for the logos */
+  height: 80px; /* Adjust the height to fit the desired size for the logos */
+  border-radius: 50%;
+  margin-right: 20px; /* Add margin to create spacing between the logo and the card content */
+}
+/* THIS IS THE END OF THE LIST VIEW */
+
+.indi-card-header,
+.indi-card-username {
+  margin-top: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+/*end individual search results */
+
+/*indiviudal listing page css for swap*/
+
+#smiski-listing-info {
+  display: flex;
+}
+
+.indi-card-content {
+  text-align: center;
+}
+
+.left-side-smiski-listing-photo {
+  width: 50%;
+  /* object-fit: cover; */
+  border-radius: 8px;
+}
+
+.specfic-listing-info-box {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 60px;
+  margin-left: 70px;
+  text-align: center;
+}
+
+.specfic-listing-info-box h1,
+.specfic-listing-info-box h2,
+.specfic-listing-info-box h3 {
+  margin-top: 10px;
+}
+
+.specfic-listing-info-box button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.specfic-listing-info-box button:hover {
+  background-color: #45a049;
+}
+
+.specfic-listing-info-box button:focus {
+  outline: none;
+}
+
+.specfic-listing-info-box button:active {
+  background-color: #3e8e41;
+  transform: translateY(1px);
+}
+
+/*end*/
+
+/* swap css */
+
+#swap-views {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swap-left-side-card {
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-right: 40px;
+}
+
+.circle-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.actually-swapping-btn {
+  background-color: #218838;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.actually-swapping-btn:hover {
+  background-color: #218838;
+}
+
+.actually-swapping-btn:active {
+  background-color: #218838;
+}
+
+.swap-right-side-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 60px;
+  border-radius: 8px;
+  text-align: center;
+  margin-left: 40px;
+}
+
+.sexy-name-input-btn {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.sexy-enter-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.sexy-enter-btn:hover {
+  background-color: #218838;
+}
+
+.sexy-enter-btn:active {
+  background-color: #1e7e34;
+}
+
+/* end swap css */
+
+/* transaction page */
+
+#transaction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#transaction-details {
+  align-items: center;
+  text-align: center;
+}
+
+#transaction .circlecardlogo {
+  margin-right: 40px;
+}
+
+#transaction-form {
+  max-width: 400px;
+  background-color: #f5f5f5;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#transaction-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#transaction-form input[type="text"],
+#transaction-form input[type="tel"],
+#transaction-form input[type="email"],
+#transaction-form input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#transaction-form button[type="submit"] {
+  background-color: #218838;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#transaction-form button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+#transaction-form button[type="submit"]:active {
+  background-color: #218838;
+}
+
+/* end transaction page */
+
+ /* hidden class */
+
 .hidden {
   display: none !important;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f1f1f1;
+  position: fixed;
+  top: 80px;
+  right: 0;
+  height: calc(100% - 80px);
+  z-index: 1;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar-menu li:last-child {
+  border-bottom: none;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar-menu li a:hover {
+  background-color: #ddd;
+}
+
+#account-details-page,
+#creating-listing,
+#view-history-page,
+#sign-out-attempt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#account-details-page,
+#view-history-page,
+#sign-out-attempt {
+padding: 40px 110px 100px 110px;
+}
+
+#creating-listing {
+  padding: 40px 110px 0px 110px;
+}
+
+#account-details-page,
+#creating-listing,
+#sign-out-attempt,
+#view-history-page {
+  margin-right: 250px;
+}
+
+#account-details-page h2,
+#view-history-page h3,
+#sign-out-attempt h3 {
+  font-size: 30px;
+  margin-top: 10px;
+}
+
+#account-details-page h3 {
+  font-size: 25px;
+  margin-bottom: 0px;
+}
+
+#account-details-page p {
+  font-size: 20px;
+}
+
+#listing-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+#creating-listing label {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#creating-listing input[type="text"] {
+  width: 97%;
+  height: 34px;
+  margin-bottom: 15px;
+}
+
+#creating-listing input[type="submit"] {
+  width: 50%;
+  padding: 10px;
+  background-color: #a0cc74;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 95px;
+}
+
+#successful-listing-message,
+#unsuccessful-listing-message {
+  margin-top: 10px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+#user-creating-listing,
+#creating-listing-seller {
+  display: inline;
+  margin-bottom: 15px;
+}
+
+#smiski-to-list-label {
+  display: block;
+  margin-top: 10px;
+}
+
+#user-creating-listing {
+  font-size: 24px;
+}
+
+#creating-listing-seller {
+  font-size: 21px;
+  margin-bottom: 20px
+}
+
+#view-history-div div {
+  max-width: 700px;
+  padding: 5px 15px;
+  margin-bottom: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#view-history-div p {
+  margin-bottom: 10px;
+}
+
+#signout-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#signout-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #a0cc74;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#signout-buttons button:hover,
+#creating-listing input[type="submit"]:hover {
+  background-color: #234F1E;
 }

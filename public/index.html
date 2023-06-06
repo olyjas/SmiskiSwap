@@ -10,51 +10,274 @@
 -->
 <html lang="en">
   <head>
-    <title>Smiski Swap!</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500&display=swap" rel="stylesheet">
-    <script src="index.js"></script>
+  <title>Smiski Swap!</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500&display=swap" rel="stylesheet">
+  <script src="index.js"></script>
   </head>
   <body>
+<!-- ALL INDIVIDUAL SMISKI IMAGES WERE TAKEN FROM smiski.com -->
+     <!-- header view -->
     <header>
-      <img src="img/logo.png" alt="Smiski Swap Logo">
-      <div id="headertext">
-        <h1>Smiski Swap</h1>
-        <h2>Share the happiness!</h2>
+      <img src="img/logo.png" id="logo-img" alt="Smiski Swap Logo">
+      <div id="search-header">
+        <input id='search-term' type='text'>
+        <button id='search-btn' class='buttons'>search</button>
       </div>
-      <div id="buttons">
-        <button id="signup">Sign up</button>
-        <button id="login">Log in</button>
+
+      <!--not signed in view of header-->
+      <div id="not-signed-in">
+        <button id="signup-btn" class="hidden">Sign up</button>
+        <button id="login-btn" class="hidden">Log in</button>
       </div>
+      <!--END of not signed in view of header-->
+
+      <!-- signed-in version of the header -->
+      <div id="signed-in">
+        <img src="img/notification-icon.png" class='signed-in-icons' alt="Notification Icon">
+        <!-- image provided by canva.com icon database -->
+        <img src="img/account-icon.png" class='signed-in-icons' id='account-button' alt="Account Icon">
+        <!-- image provided by canva.com icon database -->
+      </div>
+      <!-- END of signed-in version of the header -->
     </header>
+     <!-- end of header view -->
+
+     <!-- Account view -->
+    <section id="account-view" class="hidden">
+      <!-- Sidebar details -->
+      <div class="sidebar">
+        <ul class="sidebar-menu">
+          <li><a href="#" id="account-details">Account Details</a></li>
+          <li><a href="#" id="create-listing">Create a Listing</a></li>
+          <li><a href="#" id="view-trade-history">View Trade History</a></li>
+          <li><a href="#" id="sign-out">Sign Out</a></li>
+        </ul>
+      </div>
+    </section>
+
     <hr>
     <main>
-      <section id="search">
-        <img src="img/menu-image-1.png" alt="Carnation Sonny Angel">
-        <section>
-          <h3>Search for Sonnys!</h3>
-          <p>Search for the special angel you've been eyeing through our filtering search system
-            or browse through listings to find your next dream angel!
-          </p>
-          <button id="searchbutton">Search now</button>
+      <!-- landing/homepage view -->
+      <section id="landingpage">
+        <section id="banner">
+          <div id="banner-text">
+            <h2><pre>S m i s k i   S w a p</pre></h2>
+          </div>
+          <img src="img/banner.png" alt="Smiski Swap Banner">
+          <!-- image taken from smiski.com -->
+        </section>
+
+        <section id="recommended-boxes">
+          <h3>Recommended for you</h3>
+          <div class="recommended">
+            <article id="reccomended1">
+            </article>
+            <article id="reccomended2">
+            </article>
+            <article id="reccomended3">
+            </article>
+            <article id="reccomended4">
+            </article>
+          </div>
         </section>
       </section>
-      <section id="list">
-        <section>
-          <h3>List your Sonnys!</h3>
-          <p>List any of your Sonny Angels for trade and specify which angels you will accept in
-            exchange!
-          </p>
-          <button id="listbutton">List now</button>
-        </section>
-        <img src="img/menu-image-2.png" alt="Rose Sonny Angel">
+
+      <!-- end of landing/homepage view -->
+
+      <!--LOGIN/SIGNUP PAGES-->
+
+      <div id="login-page" class="hidden">
+        <h2>Login</h2>
+        <form id="login-form">
+          <label for="username">Username:</label>
+          <input type="text" id="login-username" name="username" required><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="login-password" name="password" required><br><br>
+          <input type="submit" value="Login">
+        </form>
+          <button id="signup-from-login">Create an account</button>
+          <button id="home-from-login" class="home">Home</button>
+          <p id="login-error"></p>
+      </div>
+      <div id="signup-page" class="hidden">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+          <label for="email">Email:</label>
+          <input type="email" id="signup-email" name="email" required><br><br>
+          <label for="username">Username:</label>
+          <input type="text" id="signup-username" name="username" required><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="signup-password" name="password" required><br><br>
+          <input type="submit" value="Sign Up">
+        </form>
+          <p>Already have an account? <button id="login-from-signup">Log in</button></p>
+          <button id="home-from-signup" class="home">Home</button>
+          <p id="signup-error"></p>
+      </div>
+
+        <!--END OF LOGIN/SIGNUP PAGES-->
+
+      <!--START OF CREATING LISTING PAGE-->
+      <section id="creating-listing" class="hidden">
+        <div>
+          <form id="listing-form">
+            <div id="creating-listing-img">
+              <!-- append image src in here of the smiski that is selected -->
+            </div>
+            <!--<label for="seller" id="user-creating-listing">User:</label>-->
+            <h3 id="user-creating-listing">User:</h3>
+            <p id="creating-listing-seller"></p>
+              <!-- fill text content in here with the username from database -->
+            <label for="smiski-to-list" id="smiski-to-list-label">Smiski to list:</label>
+            <select id="smiski-listed" name="listed-smiski">
+              <!-- append options here of all smiskis from the database -->
+            </select>
+            <label for="series-listed">Series of listed Smiski:</label>
+            <select id="series-listed" name="series-of-listing">
+              <option value="bed">Bed Series</option>
+              <option value="dressing">Dressing Series</option>
+              <option value="living">Living Series</option>
+              <option value="museum">Museum Series</option>
+              <option value="work">Work Series</option>
+              <option value="yoga">Yoga Series</option>
+            </select>
+            <label for="smiski-seeking">Smiski seeking:</label>
+            <select id="smiski-sought" name="sought-smiski">
+              <!-- append options here of all smiskis from the database -->
+            </select>
+            <label for="additional-info">Additional Information:</label>
+            <input type="text" id="creating-additional-info" name="added-info" required><br>
+            <input type="submit" value="List">
+          </form>
+          <p id="successful-listing-message"></p>
+          <p id="unsuccessful-listing-message"></p>
+        </div>
       </section>
+      <!--END OF CREATING LISTING PAGE-->
+
+      <!--START OF SIGN OUT PAGE-->
+      <section id="sign-out-attempt" class="hidden">
+        <div>
+          <h3>Confirm sign out</h3>
+          <div id="signout-buttons">
+            <button id="confirm-sign-out">Confirm</button>
+            <button id="cancel-sign-out">Cancel</button>
+          </div>
+        </div>
+      </section>
+      <!--END OF SIGN OUT PAGE-->
+
+
+      <!--START OF VIEW HISTORY PAGE-->
+      <section id ="view-history-page" class="hidden">
+        <h3>Previous Transactions</h3>
+        <div id="view-history-div">
+
+        </div>
+      </section>
+      <!--END OF VIEW HISTORY PAGE-->
+
+      <!--START OF ACCOUNT DETAILS PAGE-->
+      <section id ="account-details-page" class="hidden">
+        <h2>Account Details</h2>
+        <h3>Username:</h3>
+        <p id="account-details-username"></p>
+        <h3>Email:</h3>
+        <p id="account-details-email"></p>
+      </section>
+      <!--END OF ACCOUNT DETAILS PAGE-->
+
+      <!-- search results page -->
+      <!-- <button id='filter-btn' disabled>filter</button> -->
+      <section id="search-results">
+        <!-- <select class="filterSelect" class="hidden">
+          <option value="date">Sort by Date</option>
+          <option value="alphabetical">Sort Alphabetically</option>
+        </select> -->
+      </section>
+      <!-- end of search results page -->
+
+      <!-- end of account details page -->
+
+      <!-- individual smiski results -->
+      <section id="search-individual-results">
+
+        <select class="filterSelect">
+          <option value="select">select</option>
+          <option value="alphabetical">Sort Alphabetically</option>
+        </select>
+        <!-- TOGGLE -->
+        <select class="toggle">
+          <option value="grid">grid</option>
+          <option value="list">list</option>
+        </select>
+        <!-- TOGGLE -->
+        <section id="cardformatting">
+      </section>
+
+
+        <!-- <select class="toggle">
+          <option value="grid">grid</option>
+          <option value="list">list</option>
+        </select>
+        <section id="cardformatting">
+        </section> -->
+      </section>
+      <!-- END individual smiski results -->
+
+      <!-- specfic smiskii details-->
+      <section id="smiski-listing-info">
+
+      </section>
+      <!-- ENDspecfic smiskii details-->
+
+      <!-- series of swap views -->
+      <section id="swap-views">
+      </section>
+
+      <!-- END of swap views -->
+
+      <!-- transaction form -->
+      <section id="transaction" class="hidden">
+        <h1 id="transaction-details"></h1>
+        <img src = "/img/logo.png" alt="logo" class="circlecardlogo">
+        <form id="transaction-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required>
+
+          <label for="username">Username:</label>
+          <input type="text" id="name" required>
+
+          <label for="address">Address:</label>
+          <input type="text" id="address" required>
+
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" required>
+
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" required>
+
+          <label for="card-number">Card Number:</label>
+          <input type="text" id="card-number" required>
+
+          <label for="cvv">CVV:</label>
+          <input type="text" id="cvv" required>
+
+          <label for="expiry">Expiration Date:</label>
+          <input type="text" id="expiry" required>
+
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+
+      <!-- end of transaction form -->
     </main>
-  </body>
-</html>
+
+

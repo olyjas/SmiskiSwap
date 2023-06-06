@@ -351,14 +351,18 @@
     console.log(swappedHistory);
     console.log(swappedForHistory);
     let allSwapsContainer = id('view-history-div');
-    if (swappedHistory[0] != "") {
+    allSwapsContainer.innerHTML = '';
+    if (swappedHistory.length > 1) {
       for (let i = 0; i < swappedHistory.length; i++) {
+        if(swappedHistory[i] != "") {
           let swapContainer = gen('div');
           let swapText = gen('p');
           swapText.textContent = "Swapped " + swappedHistory[i] + " for " + swappedForHistory[i]
           swapContainer.appendChild(swapText);
           allSwapsContainer.appendChild(swapContainer);
+        }
       }
+      console.log(swapsMadeCounter);
     } else {
       let noSwapsContainer = gen('div');
       let noSwapsText = gen('p');
@@ -1015,8 +1019,10 @@ async function fetchSmiskiNamesForSeek() {
     usernameTag.innerHTML = "Name of Smiski: " + nameOfSmiski;
     let trades = gen('h2');
     trades.innerHTML = "Willing to swap for: " + possibleTrades;
+    trades.classList.add('indi-card-username');
     let series = gen('h2');
     series.innerHTML = "Series name: " + seriesName;
+    series.classList.add('indi-card-username');
     cardContent.appendChild(nameHeader);
     cardContent.appendChild(usernameTag);
     cardContent.appendChild(trades);
