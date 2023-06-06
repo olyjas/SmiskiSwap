@@ -543,6 +543,7 @@ app.post('/search/:searchInput', async function(req, res) {
 app.get('/swap-history/:username', async (req, res) => {
   try {
     const username = req.params.username;
+    //const username = req.query.username;
 
     let db = await getDBConnection();
 

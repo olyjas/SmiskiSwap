@@ -218,6 +218,10 @@
 
 
   function homeView() {
+    hideCreateListingPage()
+    hideAccountDetails();
+    hideSignOutUser();
+    hideViewTradeHistory();
     let header = qs('header');
     let banner = id('banner');
     header.classList.remove('hidden');
@@ -250,6 +254,10 @@
   }
 
   function clearViewsExceptHome() {
+    hideCreateListingPage()
+    hideAccountDetails();
+    hideSignOutUser();
+    hideViewTradeHistory();
     id('search-results').innerHTML = ""
     //id('search-individual-results').innerHTML = "";
     qs('.filterSelect').classList.add('hidden');
