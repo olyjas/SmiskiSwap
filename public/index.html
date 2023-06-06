@@ -4,9 +4,9 @@
   5/7/2023
   SECTION AG & AF
   TA: TARA WUEGER & ALLISON HO
-  This is the index.html page of our project, Sonny Swap. It contains a structured set of markup
+  This is the index.html page of our project, Smiski Swap. It contains a structured set of markup
   tags that define the content and layout of our E-Commerce trading website where users can trade
-  their collectible Sonny Angel figurines with other users.
+  their collectible Smiski figurines with other users.
 -->
 <html lang="en">
   <head>
@@ -23,7 +23,7 @@
   </head>
   <body>
 <!-- ALL INDIVIDUAL SMISKI IMAGES WERE TAKEN FROM smiski.com -->
-     <!-- header view -->
+
     <header>
       <img src="img/logo.png" id="logo-img" alt="Smiski Swap Logo">
       <div id="search-header">
@@ -31,27 +31,20 @@
         <button id='search-btn' class='buttons'>search</button>
       </div>
 
-      <!--not signed in view of header-->
       <div id="not-signed-in">
         <button id="signup-btn" class="hidden">Sign up</button>
         <button id="login-btn" class="hidden">Log in</button>
       </div>
-      <!--END of not signed in view of header-->
 
-      <!-- signed-in version of the header -->
       <div id="signed-in">
         <img src="img/notification-icon.png" class='signed-in-icons' alt="Notification Icon">
         <!-- image provided by canva.com icon database -->
         <img src="img/account-icon.png" class='signed-in-icons' id='account-button' alt="Account Icon">
         <!-- image provided by canva.com icon database -->
       </div>
-      <!-- END of signed-in version of the header -->
     </header>
-     <!-- end of header view -->
 
-     <!-- Account view -->
     <section id="account-view" class="hidden">
-      <!-- Sidebar details -->
       <div class="sidebar">
         <ul class="sidebar-menu">
           <li><a href="#" id="account-details">Account Details</a></li>
@@ -64,7 +57,6 @@
 
     <hr>
     <main>
-      <!-- landing/homepage view -->
       <section id="landingpage">
         <section id="banner">
           <div id="banner-text">
@@ -74,8 +66,8 @@
           <!-- image taken from smiski.com -->
         </section>
 
+        <h3 id="recommended-for-you">Recommended for you</h3>
         <section id="recommended-boxes">
-          <h3>Recommended for you</h3>
           <div class="recommended">
             <article id="reccomended1">
             </article>
@@ -88,10 +80,6 @@
           </div>
         </section>
       </section>
-
-      <!-- end of landing/homepage view -->
-
-      <!--LOGIN/SIGNUP PAGES-->
 
       <div id="login-page" class="hidden">
         <h2>Login</h2>
@@ -122,22 +110,16 @@
           <p id="signup-error"></p>
       </div>
 
-        <!--END OF LOGIN/SIGNUP PAGES-->
-
-      <!--START OF CREATING LISTING PAGE-->
       <section id="creating-listing" class="hidden">
         <div>
           <form id="listing-form">
             <div id="creating-listing-img">
-              <!-- append image src in here of the smiski that is selected -->
             </div>
-            <!--<label for="seller" id="user-creating-listing">User:</label>-->
+
             <h3 id="user-creating-listing">User:</h3>
             <p id="creating-listing-seller"></p>
-              <!-- fill text content in here with the username from database -->
             <label for="smiski-to-list" id="smiski-to-list-label">Smiski to list:</label>
             <select id="smiski-listed" name="listed-smiski">
-              <!-- append options here of all smiskis from the database -->
             </select>
             <label for="series-listed">Series of listed Smiski:</label>
             <select id="series-listed" name="series-of-listing">
@@ -150,7 +132,6 @@
             </select>
             <label for="smiski-seeking">Smiski seeking:</label>
             <select id="smiski-sought" name="sought-smiski">
-              <!-- append options here of all smiskis from the database -->
             </select>
             <label for="additional-info">Additional Information:</label>
             <input type="text" id="creating-additional-info" name="added-info" required><br>
@@ -160,9 +141,7 @@
           <p id="unsuccessful-listing-message"></p>
         </div>
       </section>
-      <!--END OF CREATING LISTING PAGE-->
 
-      <!--START OF SIGN OUT PAGE-->
       <section id="sign-out-attempt" class="hidden">
         <div>
           <h3>Confirm sign out</h3>
@@ -172,19 +151,14 @@
           </div>
         </div>
       </section>
-      <!--END OF SIGN OUT PAGE-->
 
-
-      <!--START OF VIEW HISTORY PAGE-->
       <section id ="view-history-page" class="hidden">
         <h3>Previous Transactions</h3>
         <div id="view-history-div">
 
         </div>
       </section>
-      <!--END OF VIEW HISTORY PAGE-->
 
-      <!--START OF ACCOUNT DETAILS PAGE-->
       <section id ="account-details-page" class="hidden">
         <h2>Account Details</h2>
         <h3>Username:</h3>
@@ -192,59 +166,32 @@
         <h3>Email:</h3>
         <p id="account-details-email"></p>
       </section>
-      <!--END OF ACCOUNT DETAILS PAGE-->
 
-      <!-- search results page -->
-      <!-- <button id='filter-btn' disabled>filter</button> -->
       <section id="search-results">
-        <!-- <select class="filterSelect" class="hidden">
-          <option value="date">Sort by Date</option>
-          <option value="alphabetical">Sort Alphabetically</option>
-        </select> -->
       </section>
-      <!-- end of search results page -->
 
-      <!-- end of account details page -->
-
-      <!-- individual smiski results -->
       <section id="search-individual-results">
 
         <select class="filterSelect">
           <option value="select">select</option>
           <option value="alphabetical">Sort Alphabetically</option>
         </select>
-        <!-- TOGGLE -->
         <select class="toggle">
           <option value="grid">grid</option>
           <option value="list">list</option>
         </select>
-        <!-- TOGGLE -->
         <section id="cardformatting">
       </section>
 
-
-        <!-- <select class="toggle">
-          <option value="grid">grid</option>
-          <option value="list">list</option>
-        </select>
-        <section id="cardformatting">
-        </section> -->
       </section>
-      <!-- END individual smiski results -->
 
-      <!-- specfic smiskii details-->
       <section id="smiski-listing-info">
 
       </section>
-      <!-- ENDspecfic smiskii details-->
 
-      <!-- series of swap views -->
       <section id="swap-views">
       </section>
 
-      <!-- END of swap views -->
-
-      <!-- transaction form -->
       <section id="transaction" class="hidden">
         <h1 id="transaction-details"></h1>
         <img src = "/img/logo.png" alt="logo" class="circlecardlogo">
@@ -276,8 +223,6 @@
           <button type="submit">Submit</button>
         </form>
       </section>
-
-      <!-- end of transaction form -->
     </main>
 
 

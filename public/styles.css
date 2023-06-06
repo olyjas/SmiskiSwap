@@ -62,6 +62,13 @@ body > header {
   margin-right: 70px;
 }
 
+#recommended-for-you {
+  margin-top: 50px;
+  margin-bottom: 0px;;
+  text-align: center;
+  font-size: 30px;
+}
+
 #logo-img:hover,
 .signed-in-icons:hover {
   cursor: pointer;
