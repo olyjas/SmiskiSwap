@@ -462,6 +462,83 @@ app.post('/search/:searchInput', async function(req, res) {
   }
 });
 
+// Route for fetching trade history
+// Route for fetching swap history for a specific user
+app.get('/swap-history/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    let db = await getDBConnection();
+
+    // SQL query to fetch swap history for the specified username
+    const query = 'SELECT swappedhistory, [swapped for history] FROM userinfostorage ' +
+                  'WHERE username = ?';
+
+    // Execute the query with the username as a parameter
+    let userRow = await db.all(query, [username]);
+
+    // Extract the swapped smiskis and swapped history from the fetched data
+    const swappedHistory = [];
+    const swappedForHistory = [];
+
+    for (let i = 0; i < userRow.length; i++) {
+      // Split the swapped history and swapped for history values into arrays
+      const swappedSmiskis = userRow[i].swappedhistory.split(' ');
+      const swappedForSmiskis = userRow[i]['swapped for history'].split(' ');
+
+      // Push the individual items into the respective arrays
+      for (let j = 0; j < swappedSmiskis.length; j++) {
+        swappedHistory.push(swappedSmiskis[j]);
+      }
+
+      for (let j = 0; j < swappedForSmiskis.length; j++) {
+        swappedForHistory.push(swappedForSmiskis[j]);
+      }
+    }
+
+    // Send the swap history as the response
+    res.json({swappedHistory, swappedForHistory});
+
+    // Close the database connection
+    db.close();
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred while fetching swap history');
+  }
+});
+
+
+// fetching account details, basically just the email
+app.get('/account-details/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    let db = await getDBConnection();
+
+    // SQL query to fetch swap history for the specified username
+    const query = 'SELECT email FROM userinfostorage WHERE username = ?';
+
+    // Execute the query with the username as a parameter
+    let userRow = await db.all(query, [username]);
+
+    const email = userRow[0].email;
+
+    res.json({email});
+
+    // Close the database connection
+    db.close();
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred while fetching account information');
+  }
+});
+
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
+
 app.use(express.static('public'));
 const PORT = process.env.PORT || 8000;
 app.listen(PORT);

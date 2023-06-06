@@ -174,6 +174,7 @@
       console.log(data.message);
       let signupError = id('signup-error');
       signupError.textContent = '';
+      location.reload();
     // Perform any necessary actions after successful signup
     } else {
       // Signup unsuccessful
@@ -244,6 +245,7 @@
   }
 
   function accountView() {
+    displayAccountDetails();
     let accountView = id('account-view');
     accountView.classList.remove('hidden');
     let recommended = id('recommended-boxes');
@@ -255,10 +257,133 @@
     // FETCH REQUEST FOR PROFILE, in progress backend wise
     let createListing = id('create-listing');
     createListing.addEventListener('click', createListingPage);
+    let signOut = id('sign-out');
+    signOut.addEventListener('click', signOutUser);
+    let viewTradeHistory = id('view-trade-history');
+    viewTradeHistory.addEventListener('click', viewTradeHistoryPage);
+    let accountDetails = id('account-details');
+    accountDetails.addEventListener('click', displayAccountDetails);
+  }
+
+   function displayAccountDetails() {
+    hideSignOutUser();
+    hideCreateListingPage();
+    hideViewTradeHistory();
+    let accountDetails = id('account-details-page');
+    accountDetails.classList.remove('hidden');
+    populateAccountDetails();
+   }
+
+   function populateAccountDetails() {
+    let username = localStorage.getItem('username');
+    let usernameFromDetails = id('account-details-username');
+    usernameFromDetails.textContent = username
+
+    fetch('account-details/' + username)
+    .then(response => response.json())
+    .then(data => {
+      const email = data.email;
+      let emailFromDetails = id('account-details-email');
+      emailFromDetails.textContent = email;
+   })
+   .catch(handleError);
+   }
+
+   function hideAccountDetails() {
+    let accountDetails = id('account-details-page');
+    accountDetails.classList.add('hidden');
+   }
+
+  function viewTradeHistoryPage() {
+    let tradeHistoryPage = id('view-history-page');
+    tradeHistoryPage.classList.remove('hidden');
+    hideAccountDetails()
+    hideSignOutUser();
+    hideCreateListingPage();
+    fetchTradeHistory();
+  }
+
+  function fetchTradeHistory() {
+    let allSwapsContainer = id('view-history-div');
+    allSwapsContainer.innerHTML = '';
+    let username = localStorage.getItem('username')
+    fetch('/swap-history/' + username)
+      .then(response => response.json())
+      .then(handleTradeHistory)
+      .catch(handleError);
+  }
+
+  function handleTradeHistory(data) {
+    const swappedHistory = data.swappedHistory;
+    const swappedForHistory = data.swappedForHistory;
+    populateSwapHistory(swappedHistory, swappedForHistory);
+  }
+
+  function populateSwapHistory(swappedHistory, swappedForHistory) {
+    console.log(swappedHistory);
+    console.log(swappedForHistory);
+    let allSwapsContainer = id('view-history-div');
+    if (swappedHistory[0] != "") {
+      for (let i = 0; i < swappedHistory.length; i++) {
+        let swapContainer = gen('div');
+        let swapText = gen('p');
+        swapText.textContent = "Swapped " + swappedHistory[i] + " for " + swappedForHistory[i]
+        swapContainer.appendChild(swapText);
+        allSwapsContainer.appendChild(swapContainer);
+      }
+    } else {
+      let noSwapsContainer = gen('div');
+      let noSwapsText = gen('p');
+      noSwapsText.textContent = "No swaps yet!";
+      noSwapsContainer.appendChild(noSwapsText);
+      allSwapsContainer.appendChild(noSwapsContainer);
+    }
+  }
+
+  function signOutUser() {
+    hideCreateListingPage();
+    hideViewTradeHistory();
+    hideAccountDetails();
+    let attemptSignOut = id('sign-out-attempt');
+    attemptSignOut.classList.remove('hidden');
+    let confirmButton = id('confirm-sign-out');
+    let cancelButton = id('cancel-sign-out');
+    confirmButton.addEventListener('click', confirmSignOut);
+    cancelButton.addEventListener('click', cancelSignOut);
+  }
+
+  function confirmSignOut() {
+    localStorage.removeItem('username');
+    signedIn = false;
+    location.reload();
+  }
+
+  function cancelSignOut() {
+    let attemptSignOut = id('sign-out-attempt');
+    attemptSignOut.classList.add('hidden');
+    displayAccountDetails();
+  }
+
+  function hideViewTradeHistory() {
+    let createListing = id('view-history-page');
+    createListing.classList.add('hidden');
+  }
+
+  function hideCreateListingPage() {
+    let createListing = id('creating-listing');
+    createListing.classList.add('hidden');
+  }
+
+  function hideSignOutUser() {
+    let attemptSignOut = id('sign-out-attempt');
+    attemptSignOut.classList.add('hidden');
   }
 
   function createListingPage() {
 
+    hideAccountDetails();
+    hideSignOutUser();
+    hideViewTradeHistory();
     let successfulListingMessage = id('successful-listing-message');
     successfulListingMessage.textContent ='';
 
@@ -306,19 +431,18 @@
       console.log('Listing created successfully');
 
       successfulListingMessage.textContent ='Listing created!';
+      id('creating-additional-info').value ='';
 
-      // Perform any additional actions or update the UI as needed
+
     } else {
       // Error creating the listing
       console.error('Error creating listing');
       unsuccessfulListingMessage.textContent ='There was an error creating the listing';
-      // Handle the error or display an error message to the user
+      id('creating-additional-info').value ='';
+
     }
   })
-  .catch(error => {
-    console.error('Error:', error);
-    // Handle any network or request errors
-  });
+  .catch(handleError);
 });
 }
 
@@ -1063,5 +1187,4 @@ async function fetchSmiskiNamesForSeek() {
     return document.createElement(tagName);
   }
 
-})();
-
+})()
